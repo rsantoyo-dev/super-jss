@@ -58,11 +58,11 @@ Begin crafting beautiful, responsive, and dynamic user interfaces with unparalle
   [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src), or deployed to [superjss](https://superjss.netlify.app/),:
   Show typography, theme handler updating palette, fonts, and breakpoints. or [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src):
 
-## 💖 Support
+## 💖☕ Support
 
 If you find Super JSS useful, consider supporting its development:
 
-- [☕ Buy me a coffee](https://buymeacoffee.com/superjss)
+- [☕ ☕ ☕ Buy me a coffee](https://buymeacoffee.com/superjss)
 - [Support Super JSS](https://opencollective.com/super-jss)
 - [Support Developer](https://patreon.com/superjss)
 
