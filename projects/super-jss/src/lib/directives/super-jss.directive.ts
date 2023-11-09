@@ -1,4 +1,4 @@
-import { Directive, Input, ViewContainerRef, effect, signal } from '@angular/core';
+import { Directive, Input, ViewContainerRef, effect } from '@angular/core';
 
 import {
   activeListeners,
@@ -11,36 +11,19 @@ import { sjTheme, sjInnerWidth } from './public-api';
 import { SJss } from '../model';
 
 @Directive({
+  standalone: true,
   selector: "[sj]"
 })
 export class SuperJssDirective {
-  sjInput = signal<SJss>({});
 
-  /**
-   * The main directive for Super JSS.
-   * 
-   * @remarks
-   * This directive allows users to set the value of SJss.
-   * 
-   * @example
-   * ```html
-   * <div [sj]="mySJssObject"></div>
-   * ```
-   * * ```html
-   * <div sj="[mySJssObject]"></div>
-   * ```
-   * where mySJssObject is an SJssStyles instance.
-   */
-  @Input() set sj(value: SJss) {
-    this.sjInput.set(value);
-  }
+  @Input() sj: SJss = {};
 
   constructor(private vcr: ViewContainerRef) {
     // Apply typography and styles to the element
     effect(() => {
       const el: HTMLElement = this.vcr.element.nativeElement;
       applyTypography(el, sjTheme(), sjInnerWidth());
-      applyStylesToElement(el, this.sjInput(), sjTheme(), sjInnerWidth());
+      applyStylesToElement(el, this.sj, sjTheme(), sjInnerWidth());
     });
 
     // Add a listener for window resize events

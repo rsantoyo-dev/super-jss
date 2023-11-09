@@ -3,11 +3,12 @@ import { Component } from "@angular/core";
 import { HeaderComponent } from "./header/header.component";
 import { PaletteComponent } from "./components/palette/palette.component";
 import {TypographyComponent} from "./components/typography/typography.component";
-import { SuperJssModule, SJss, sjSpace, sjGetBreakpointValue, sjBreakPoint, Breakpoints, sjColor } from "super-jss";
+import { SuperJssDirective, SJss, sjSpace, sjGetBreakpointValue, sjBreakPoint, Breakpoints, sjColor } from "super-jss";
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [SuperJssDirective, HeaderComponent, PaletteComponent, TypographyComponent],
   template: `
     <div [sj]="sjAppBootstrap">
       <app-header></app-header>
@@ -19,8 +20,7 @@ import { SuperJssModule, SJss, sjSpace, sjGetBreakpointValue, sjBreakPoint, Brea
 
       </div>
     </div>
-  `,
-  imports: [SuperJssModule, HeaderComponent, PaletteComponent, TypographyComponent]
+  `
 })
 export class AppComponent {
   sjAppBootstrap: SJss = {

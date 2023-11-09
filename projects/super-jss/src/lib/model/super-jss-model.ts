@@ -86,7 +86,7 @@ export interface Palette {
     disabled: string
   }
 }
-  
+
 
 
 /**
@@ -295,7 +295,7 @@ export type SJss = (SJssStyles | SJssStyles[] | undefined);
  * Interface for defining styles in Super JSS.
  * @remarks
  * This interface defines a set of properties that can be used to style elements in Super JSS.
- * Each property can be a string or an object of type SJssBreakingStyle, 
+ * Each property can be a string or an object of type SJssBreakingStyle,
  * where SJssBreakingStyle is an object that defines the style for different screen sizes.
  * example:
  * ```typescript
@@ -304,7 +304,7 @@ export type SJss = (SJssStyles | SJssStyles[] | undefined);
  *   margin: {xs: '0', sm: '10px', md: '20px', lg: '30px', xl: '40px'},
  *   justifyContent: {xs: 'center', sm: 'flex-start', md: 'flex-end', lg: 'space-between', xl: 'space-around'},
  * }
- * 
+ *
  * @public
  */
 export interface SJssStyles {

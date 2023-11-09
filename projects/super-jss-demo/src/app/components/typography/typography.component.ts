@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {sjColor, sjSpace, SJssStyles, SuperJssModule, sjTheme} from "super-jss";
-import {appTheme} from "../../sjStyling/themeHandler";
+import {sjColor, sjSpace, SJssStyles, SuperJssDirective} from "super-jss";
 
 @Component({
   selector: 'app-typography',
   standalone: true,
-  imports: [CommonModule, SuperJssModule],
+  imports: [CommonModule, SuperJssDirective],
   template: `
     <div [sj]="sjContainer">
      <h1 [sj]="">H1: Super JSS leaps</h1>
@@ -29,7 +28,5 @@ export class TypographyComponent {
     color: sjColor.neutralDark,
     padding: { xs: sjSpace(1), md: sjSpace(1) },
   };
-  constructor() {
-    sjTheme.set(appTheme())
-  }
+
 }

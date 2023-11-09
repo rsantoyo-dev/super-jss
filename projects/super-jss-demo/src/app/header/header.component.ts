@@ -1,13 +1,14 @@
 import { sjShadow } from '../sjStyling/sjStyles';
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule, sjColor, sjTheme, defaultThemeConfig, sjSpace } from 'super-jss';
-import {appTheme} from "../sjStyling/themeHandler";
+import { SuperJssDirective, sjTheme, sjColor, sjSpace } from 'super-jss';
+import {changeTheme} from "../sjStyling/themeHandler";
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, SuperJssModule],
+  imports: [CommonModule, SuperJssDirective],
   template: `
     <div [sj]="[
       {
@@ -16,7 +17,7 @@ import {appTheme} from "../sjStyling/themeHandler";
         alignItems: 'center',
         justifyContent: 'center',
         padding: { xs: sjSpace(1), md: sjSpace(2) },
-        backgroundColor: { xs: sjColor.primary, md: sjColor.primaryLight }
+        backgroundColor: { xs: sjTheme().palette.primary.main, md: sjColor.primaryLight }
       },
       sjShadow
     ]">
@@ -44,7 +45,7 @@ import {appTheme} from "../sjStyling/themeHandler";
 })
 export class HeaderComponent {
   protected readonly sjColor = sjColor;
-  protected readonly myTheme = signal(appTheme());
+  protected readonly myTheme= sjTheme
   protected readonly sjShadow = sjShadow;
   protected readonly sjSpace = sjSpace;
   protected readonly JSON = JSON;
@@ -53,53 +54,7 @@ export class HeaderComponent {
 
   updateTheme = () => {
     this.toggleTheme.set(!this.toggleTheme());
-    appTheme.mutate((theme) => {
-
-      theme.typography.default = this.toggleTheme()
-        ? {
-          fontFamily: 'Courier New',
-        }
-        : defaultThemeConfig().typography.default;
-
-      theme.typography.H1 = this.toggleTheme()
-      ? {
-          fontSize: {xs: sjSpace(3), md: sjSpace(4)},
-          fontWeight: 'bold',
-        }
-        : defaultThemeConfig().typography.H1;
-
-
-      theme.palette.primary = this.toggleTheme()
-        ? {
-            main: '#800080', // Purple
-            light: '#E0B0FF', // Lighter Purple
-            dark: '#4B0082', // Darker Purple
-            contrastText: '#FFFFFF' // White for contrast
-          }
-        : defaultThemeConfig().palette.primary;
-
-      theme.palette.secondary = this.toggleTheme()
-        ? {
-            main: '#FFDB58', // Mustard
-            light: '#FFEA70', // Lighter Mustard
-            dark: '#B08D57', // Darker Mustard
-            contrastText: '#FFFFFF' // White for contrast
-          }
-        : defaultThemeConfig().palette.secondary;
-
-      theme.palette.tertiary = this.toggleTheme()
-        ? {
-            main: '#0000FF', // Blue
-            light: '#8A2BE2', // Lighter Blue
-            dark: '#00008B', // Darker Blue
-            contrastText: '#FFFFFF' // White for contrast
-          }
-        : defaultThemeConfig().palette.tertiary;
-
-      theme.breakpoints.md = this.toggleTheme()
-        ? 750
-        : defaultThemeConfig().breakpoints.md;
-    });
-    sjTheme.set(appTheme());
+    changeTheme(this.toggleTheme());
   };
+  protected readonly sjTheme = sjTheme;
 }
