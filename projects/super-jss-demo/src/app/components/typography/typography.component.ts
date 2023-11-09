@@ -17,7 +17,6 @@ import {sjColor, sjSpace, SJssStyles, SuperJssDirective} from "super-jss";
       <strong [sj]="">STRONG: SJSS wins with its responsive design!</strong>
       <p [sj]="">P: Helvetica too, making our text look great!</p>
       <span [sj]="">SPAN: Flexing flex, for a flexible layout!</span>
-
     </div>
   `
 })
