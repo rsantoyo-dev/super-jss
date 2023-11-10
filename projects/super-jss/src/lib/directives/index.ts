@@ -1,4 +1,4 @@
-export * from './super-jss.directive';
-export * from './public-api';
+export * from './sj.directive';
+//export * from './public-api';
 
 

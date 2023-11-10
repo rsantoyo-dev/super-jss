@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
-import { SuperJssDirective } from './directives';
+import {SjDirective} from "./directives";
+
+
 
 @NgModule({
   declarations: [
-    SuperJssDirective
+    SjDirective
   ],
   imports: [
+
   ],
   exports: [
-    SuperJssDirective,
+    SjDirective
   ]
 })
 export class SuperJssModule { }
