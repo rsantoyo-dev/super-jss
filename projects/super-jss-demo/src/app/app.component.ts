@@ -1,12 +1,14 @@
 import { Component } from "@angular/core";
-import {SuperJssModule} from "../../../super-jss/src/lib";
+import { SjDirective } from "projects/super-jss/src/lib";
+
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [SuperJssModule],
+  imports: [SjDirective],
   template: `
-  <div [sj]="'blue'">
+  <div [sj]="{display:'flex', backgroundColor:'blue', color:'red'}">
     hello
 
     </div>
@@ -14,5 +16,6 @@ import {SuperJssModule} from "../../../super-jss/src/lib";
 })
 export class AppComponent {
 
+  c: Partial<CSSStyleDeclaration> = { backgroundColor: 'red'};
 }
 
