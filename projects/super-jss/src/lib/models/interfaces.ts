@@ -1,18 +1,19 @@
-export interface ScreenSize {
-    width: number;
-    height: number;
-  }
 
-/* export interface Breakpoints {
-    xs?: string;
-    sm?: string;
-    md?: string;
-    lg?: string;
-    xl?: string;
-    // Add more breakpoints as angular material
+
+export interface Breakpoints {
+  xs?: string;
+  sm?: string;
+  md?: string;
+  lg?: string;
+  xl?: string;
+  // Add more breakpoints as angular material does
 }
-  
-type ResponsiveStyle = {
-    [Property in keyof CSSStyleDeclaration]?: Breakpoints;
-  };
-   */
+
+export type ResponsiveStyle = {
+  [Property in keyof CSSStyleDeclaration]?: Breakpoints | string;
+};
+
+
+
+
+

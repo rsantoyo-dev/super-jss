@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
-import { SjDirective } from "projects/super-jss/src/lib";
+import { SjDirective } from "projects/super-jss/src/lib/directives/sj.directive";
+import { ResponsiveStyle } from "projects/super-jss/src/lib/models/interfaces";
+
+
 
 
 
@@ -8,14 +11,15 @@ import { SjDirective } from "projects/super-jss/src/lib";
   standalone: true,
   imports: [SjDirective],
   template: `
-  <div [sj]="{display:'flex', backgroundColor:'blue', color:'red'}">
-    hello
+  <div [sj]="c">
+    <div>1</div>
+    <div>2</div>
 
     </div>
   `
 })
 export class AppComponent {
 
-  c: Partial<CSSStyleDeclaration> = { backgroundColor: 'red'};
+  c: ResponsiveStyle = {display:'flex', flexDirection:{xs:'column', sm:'row'}, backgroundColor:'blue', color:'red'};
 }
 

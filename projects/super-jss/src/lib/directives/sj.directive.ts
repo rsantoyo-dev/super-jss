@@ -4,7 +4,8 @@ import {
   OnDestroy,
   ViewContainerRef,
 } from "@angular/core";
-import {activeListeners, applyStyle} from "../core/core-methods";
+import {activeListeners, applyResponsiveStyle, applyStyle} from "../core/core-methods";
+import { ResponsiveStyle } from "../models/interfaces";
 
 @Directive({
   standalone: true,
@@ -13,27 +14,30 @@ import {activeListeners, applyStyle} from "../core/core-methods";
 
 export class SjDirective implements OnDestroy {
 
-  @Input() sj: Partial<CSSStyleDeclaration> = { backgroundColor: 'red' }
-  constructor(public vcr: ViewContainerRef) {
-    if (!activeListeners()) {
-      window.addEventListener('resize', () => this.render());
-      window.addEventListener('load', () => this.render());
-      activeListeners.set(true);
-    }
-  }
-  private render = (): void => {
-    applyStyle(
-      this.vcr.element.nativeElement,
-      this.sj,
-      {width: window.innerWidth, height: window.innerHeight}
-    );
-  }
 
-  ngOnDestroy() {
-    if(activeListeners()) {
-      window.removeEventListener('resize', this.render);
-      window.removeEventListener('onLoad', this.render);
+  
+    @Input() sj: ResponsiveStyle = { backgroundColor: 'red' }
+    
+    constructor(public vcr: ViewContainerRef) {
+      if (!activeListeners()) {
+        window.addEventListener('resize', () => this.render());
+        window.addEventListener('load', () => this.render());
+        activeListeners.set(true);
+      }
     }
-  }
+    private render = (): void => {
+      applyResponsiveStyle(
+        this.vcr.element.nativeElement,
+        this.sj,
+        window.innerWidth
+      );
+    }
 
-}
+    ngOnDestroy() {
+      if(activeListeners()) {
+        window.removeEventListener('resize', this.render);
+        window.removeEventListener('onLoad', this.render);
+      }
+    }
+
+  }
