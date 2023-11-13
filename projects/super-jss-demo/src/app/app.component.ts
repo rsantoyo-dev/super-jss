@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { SjDirective } from "projects/super-jss/src/lib/directives/sj.directive";
-import { ResponsiveStyle } from "projects/super-jss/src/lib/models/interfaces";
+import { SjStyle } from "projects/super-jss/src/lib/models/interfaces";
 
 
 
@@ -20,6 +20,6 @@ import { ResponsiveStyle } from "projects/super-jss/src/lib/models/interfaces";
 })
 export class AppComponent {
 
-  c: ResponsiveStyle = {display:'flex', flexDirection:{xs:'column', sm:'row'}, backgroundColor:'blue', color:'red'};
+  c: SjStyle = {display:'flex', padding:'1rem', flexDirection:{xs:'column', sm:'row'}, backgroundColor:'blue', color:'red'};
 }
 

@@ -5,7 +5,7 @@ import {
   ViewContainerRef,
 } from "@angular/core";
 import {activeListeners, applyResponsiveStyle, applyStyle} from "../core/core-methods";
-import { ResponsiveStyle } from "../models/interfaces";
+import { ResponsiveStyle, SjStyle } from "../models/interfaces";
 
 @Directive({
   standalone: true,
@@ -16,7 +16,7 @@ export class SjDirective implements OnDestroy {
 
 
   
-    @Input() sj: ResponsiveStyle = { backgroundColor: 'red' }
+    @Input() sj: SjStyle = {display:'flex', flexDirection:{xs:'column', sm:'row'}, backgroundColor:'blue', color:'red'}
     
     constructor(public vcr: ViewContainerRef) {
       if (!activeListeners()) {

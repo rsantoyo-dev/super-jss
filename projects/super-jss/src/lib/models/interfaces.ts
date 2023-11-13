@@ -1,17 +1,31 @@
 
 
-export interface Breakpoints {
+export type SjTheme = {
+  breakpoints: SjBreakPoints;
+}
+
+export type SjBreakPoints= {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+  xxl: number;
+}
+
+export type ResponsiveStyle = {
   xs?: string;
   sm?: string;
   md?: string;
   lg?: string;
   xl?: string;
-  // Add more breakpoints as angular material does
+  xxl?: string;
 }
 
-export type ResponsiveStyle = {
-  [Property in keyof CSSStyleDeclaration]?: Breakpoints | string;
+export type SjStyle = {
+  [Property in keyof CSSStyleDeclaration]?: ResponsiveStyle | string;
 };
+
 
 
 
