@@ -2,6 +2,8 @@
 
 export type SjTheme = {
   breakpoints: SjBreakPoints;
+  spacing: (factor: number) => string
+
 }
 
 export type SjBreakPoints= {
