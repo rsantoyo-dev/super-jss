@@ -3,12 +3,9 @@ import {  ResponsiveStyle, SjBreakPoints, SjStyle, SjTheme } from "../models/int
 
 export const activeListeners = signal(false);
 
-const defaultTheme: SjTheme = {
-    breakpoints: {xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560},
-    spacing: (factor: number): string => `${factor * 0.8}rem`
-};
 
-const sjTheme = signal(defaultTheme);
+
+
 const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
     let bp = 'xs'
     for (const key of Object.keys(breakpoints)) {
@@ -42,13 +39,13 @@ const applyStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaratio
     });
 };
 
-export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, screenWidth: number): void => {
+export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, screenWidth: number, theme:SjTheme): void => {
     if (typeof sjStyle === 'object' && sjStyle !== null) {
         Object.keys(sjStyle).forEach(key => {
             const cssKey = key as keyof CSSStyleDeclaration;
             const value = sjStyle[cssKey];
             applyStyle(element, {[cssKey]:
-                typeof value === 'string' ? value : getStyleByScreenWidth(value as ResponsiveStyle, sjTheme(), screenWidth)
+                typeof value === 'string' ? value : getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
             });
         });
     }
