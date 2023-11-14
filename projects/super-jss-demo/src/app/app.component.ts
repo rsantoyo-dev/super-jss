@@ -1,17 +1,20 @@
 import { Component } from "@angular/core";
 import { SjDirective } from "projects/super-jss/src/lib/directives/sj.directive";
-
+import {SjStyle} from "../../../super-jss/src/lib/models/interfaces";
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [SjDirective],
   template: `
-    <div [sj]="{display:'flex', padding: 5, margin: 1, flexDirection:{xs: 'column', sm: 'row'}, backgroundColor:'yellow', color:'purple'}">
-      <div [sj]="{fontWeight:'bold'}">BOLD</div>
+    <div [sj]="{d:{xs:'flex', md:'block'}, p: {xs:3, md:7}, m: 1, fxDir:{xs: 'column', sm:'row'}, backgroundColor:'yellow', color:'purple'}">
+      <div>BOLD</div>
       <div>hello</div>
     </div>
   `
 })
+
+
 export class AppComponent {
+  mySjClass:SjStyle = {display:'flex', p: 5, margin: 1, flexDirection:{xs: 'column', sm: 'row'}, backgroundColor:'yellow', color:'purple'}
 }
 

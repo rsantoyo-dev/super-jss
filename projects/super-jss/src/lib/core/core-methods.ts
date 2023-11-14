@@ -1,5 +1,11 @@
 import {signal} from "@angular/core";
-import {  ResponsiveStyle, SjBreakPoints, SjStyle, SjTheme } from "../models/interfaces";
+import {
+    ResponsiveStyle,
+    SjBreakPoints,
+    SjStyle,
+    SjTheme,
+    SjShorthandStyle,
+} from "../models/interfaces";
 
 export const activeListeners = signal(false);
 const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
@@ -17,10 +23,16 @@ const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): st
 const getStyleByScreenWidth = (value: ResponsiveStyle, sjTheme:SjTheme, screenWidth: number): string | undefined => {
     const responsiveStyle= value;
     const currentBreakpoint:string = getCurrentBreakpoint(sjTheme.breakpoints, screenWidth) ;
-    return responsiveStyle[currentBreakpoint as keyof ResponsiveStyle];
+    let styleInBreakpoint: string | number | undefined;
+    styleInBreakpoint = responsiveStyle[currentBreakpoint as keyof ResponsiveStyle];
+    if(typeof styleInBreakpoint === 'number'){
+        styleInBreakpoint = sjTheme.spacing(styleInBreakpoint);
+    }
+    return styleInBreakpoint;
 }
 
 const applyStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaration>): void => {
+    console.log(styleValue)
     Object.keys(styleValue).forEach(key => {
         const cssKey = key as keyof CSSStyleDeclaration;
         // Skip read-only properties
@@ -35,16 +47,34 @@ const applyStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaratio
     });
 };
 
+const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
+    p: 'padding',
+    pt: 'paddingTop',
+    pr: 'paddingRight',
+    pb: 'paddingBottom',
+    pl: 'paddingLeft',
+    m: 'margin',
+    mt: 'marginTop',
+    mr: 'marginRight',
+    mb: 'marginBottom',
+    ml: 'marginLeft',
+    d: 'display',
+    fxDir: 'flexDirection',
+    // Add other shorthand mappings as needed
+};
+
 export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, screenWidth: number, theme:SjTheme): void => {
     if (typeof sjStyle === 'object' && sjStyle !== null) {
         Object.keys(sjStyle).forEach(key => {
-            const cssKey = key as keyof CSSStyleDeclaration;
-            const value = sjStyle[cssKey];
-            applyStyle(element, {[cssKey]:
+            let cssKey = key as keyof CSSStyleDeclaration | keyof SjShorthandStyle;
+            let value = sjStyle[cssKey];
+            cssKey = shorthandMappings[cssKey] || cssKey;
+            const cssDeclaration: Partial<CSSStyleDeclaration>= {[cssKey]:
                   typeof value === 'string' ? value :
                   typeof value === 'number' ? theme.spacing(value) :
                   getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
-            });
+            }
+            applyStyle(element, cssDeclaration);
         });
     }
 };
