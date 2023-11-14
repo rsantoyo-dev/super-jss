@@ -1,7 +1,6 @@
-
-
 export type SjTheme = {
   breakpoints: SjBreakPoints;
+  spacing: (factor: number) => string
 }
 
 export type SjBreakPoints= {
@@ -23,7 +22,7 @@ export type ResponsiveStyle = {
 }
 
 export type SjStyle = {
-  [Property in keyof CSSStyleDeclaration]?: ResponsiveStyle | string;
+  [Property in keyof CSSStyleDeclaration]?: ResponsiveStyle | string | number;
 };
 
 

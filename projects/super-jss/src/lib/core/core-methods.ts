@@ -2,10 +2,6 @@ import {signal} from "@angular/core";
 import {  ResponsiveStyle, SjBreakPoints, SjStyle, SjTheme } from "../models/interfaces";
 
 export const activeListeners = signal(false);
-
-
-
-
 const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
     let bp = 'xs'
     for (const key of Object.keys(breakpoints)) {
@@ -45,7 +41,9 @@ export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, scr
             const cssKey = key as keyof CSSStyleDeclaration;
             const value = sjStyle[cssKey];
             applyStyle(element, {[cssKey]:
-                typeof value === 'string' ? value : getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
+                  typeof value === 'string' ? value :
+                  typeof value === 'number' ? theme.spacing(value) :
+                  getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
             });
         });
     }
