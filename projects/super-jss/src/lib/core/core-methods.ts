@@ -4,7 +4,7 @@ import {
     SjBreakPoints,
     SjStyle,
     SjTheme,
-    SjShorthandStyle,
+    SjShorthandStyle, SjShorthandCustomStyle,
 } from "../models/interfaces";
 
 export const activeListeners = signal(false);
@@ -19,7 +19,6 @@ const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): st
     }
     return bp;
 }
-
 const getStyleByScreenWidth = (value: ResponsiveStyle, sjTheme:SjTheme, screenWidth: number): string | undefined => {
     const responsiveStyle= value;
     const currentBreakpoint:string = getCurrentBreakpoint(sjTheme.breakpoints, screenWidth) ;
@@ -30,22 +29,6 @@ const getStyleByScreenWidth = (value: ResponsiveStyle, sjTheme:SjTheme, screenWi
     }
     return styleInBreakpoint;
 }
-
-const applyStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaration>): void => {
-    console.log(styleValue)
-    Object.keys(styleValue).forEach(key => {
-        const cssKey = key as keyof CSSStyleDeclaration;
-        // Skip read-only properties
-        if (cssKey === 'length' || cssKey === 'parentRule') {
-            return;
-        }
-        // Apply each style property to the element, using type assertion
-        const value = styleValue[cssKey];
-        if (value !== undefined) {
-            (element.style as any)[cssKey] = value;
-        }
-    });
-};
 
 const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
     // Padding and Margin
@@ -96,37 +79,99 @@ const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
     fxShrink: 'flexShrink',
     fxBasis: 'flexBasis',
     fxASelf: 'alignSelf',
-    // Skip px, py, mx, my, bx, by for now
-    // Add other shorthand mappings as needed
 };
 
-export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
-    // Loop through each typography style in the theme
-    Object.keys(theme.typography).forEach(key => {
-        // Set the default style to the default typography style
-        const jss: SjStyle = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
-        // Get the specific style for the current element if it exists
-        const specificStyle: SjStyle | undefined = theme.typography[key as keyof typeof theme.typography];
-        // If the current element matches the current typography style, apply the style to the element
-        if (el.nodeName === key && specificStyle) {
-            applyResponsiveStyle(el, { ...jss, ...specificStyle }, screenWidth, theme);
-        }
+const isCustomShorthandKey = (key: string): key is keyof SjShorthandCustomStyle => {
+    return key === 'px' || key === 'py' || key === 'mx' || key === 'my' || key === 'bx' || key === 'by';
+}
+
+function getCssPropertiesForCustomShorthand(key: keyof SjShorthandCustomStyle): Array<keyof CSSStyleDeclaration> {
+    switch (key) {
+        case 'px':
+            return ['paddingLeft', 'paddingRight'];
+        case 'py':
+            return ['paddingTop', 'paddingBottom'];
+        case 'mx':
+            return ['marginLeft', 'marginRight'];
+        case 'my':
+            return ['marginTop', 'marginBottom'];
+        case 'bx':
+            return ['borderLeft', 'borderRight'];
+        case 'by':
+            return ['borderTop', 'borderBottom'];
+      // Add more cases as needed for new custom shorthand keys
+        default:
+            return [];
+    }
+}
+
+function applySjCustomShorthand(element: HTMLElement, key: keyof SjShorthandCustomStyle, sjStyle: SjStyle, screenWidth: number, theme: SjTheme): void {
+    //let cssProperties: Array<keyof CSSStyleDeclaration>;
+    let cssProperties = getCssPropertiesForCustomShorthand(key);
+    let cssKey = key as keyof SjShorthandCustomStyle;
+    let value = sjStyle[cssKey];
+    cssProperties.forEach(cssProperty => {
+        const cssDeclaration: Partial<CSSStyleDeclaration> = {
+            [cssProperty]: typeof value === 'string' ? value
+              : typeof value === 'number' ? theme.spacing(value)
+                : getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
+        };
+        applyCssStyle(element, cssDeclaration);
     });
-};
+
+}
+
+function applySjStyle(element: HTMLElement, key: keyof SjStyle, sjStyle: SjStyle, screenWidth: number, theme: SjTheme): void {
+    let cssKey = key as keyof CSSStyleDeclaration | keyof SjShorthandStyle;
+    let value = sjStyle[cssKey];
+    cssKey = shorthandMappings[cssKey] || cssKey;
+    const cssDeclaration: Partial<CSSStyleDeclaration>= {[cssKey]:
+          typeof value === 'string' ? value :
+            typeof value === 'number' ? theme.spacing(value) :
+              getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
+    }
+    applyCssStyle(element, cssDeclaration);
+}
 
 export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, screenWidth: number, theme:SjTheme): void => {
     if (typeof sjStyle === 'object' && sjStyle !== null) {
         Object.keys(sjStyle).forEach(key => {
-            let cssKey = key as keyof CSSStyleDeclaration | keyof SjShorthandStyle;
-            let value = sjStyle[cssKey];
+            isCustomShorthandKey(key) ?
+              applySjCustomShorthand(element, key, sjStyle, screenWidth, theme) :
+              applySjStyle(element, key as keyof CSSStyleDeclaration | keyof SjShorthandStyle, sjStyle, screenWidth, theme)
+        });
+    }
+};
 
-            cssKey = shorthandMappings[cssKey] || cssKey;
-            const cssDeclaration: Partial<CSSStyleDeclaration>= {[cssKey]:
-                  typeof value === 'string' ? value :
-                  typeof value === 'number' ? theme.spacing(value) :
-                  getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
+const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaration>): void => {
+    console.log(styleValue)
+    Object.keys(styleValue).forEach(key => {
+        const cssKey = key as keyof CSSStyleDeclaration;
+        // Skip read-only properties
+        if (cssKey === 'length' || cssKey === 'parentRule') {
+            return;
+        }
+        // Apply each style property to the element, using type assertion
+        const value = styleValue[cssKey];
+        if (value !== undefined) {
+            (element.style as any)[cssKey] = value;
+        }
+    });
+};
+
+
+export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
+    // Loop through each typography style in the theme
+    if(theme.typography[el.nodeName as keyof typeof theme.typography]){
+        Object.keys(theme.typography).forEach(key => {
+            // Set the default style to the default typography style
+            const jss: SjStyle = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
+            // Get the specific style for the current element if it exists
+            const specificStyle: SjStyle | undefined = theme.typography[key as keyof typeof theme.typography];
+            // If the current element matches the current typography style, apply the style to the element
+            if (el.nodeName === key && specificStyle) {
+                applyResponsiveStyle(el, { ...jss, ...specificStyle }, screenWidth, theme);
             }
-            applyStyle(element, cssDeclaration);
         });
     }
 };

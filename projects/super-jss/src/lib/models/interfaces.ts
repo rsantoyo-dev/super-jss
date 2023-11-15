@@ -91,9 +91,17 @@ export type SjShorthandStyle = {
   fxASelf?: ResponsiveStyle | string | number; // shorthand for alignSelf
 };
 
+export type SjShorthandCustomStyle = {
+  py?: ResponsiveStyle | string | number; // shorthand for padding
+  px?: ResponsiveStyle | string | number; // shorthand for paddingTop
+  my?: ResponsiveStyle | string | number; // shorthand for padding
+  mx?: ResponsiveStyle | string | number; // shorthand for paddingTop
+  bx?: ResponsiveStyle | string | number; // shorthand for borderLeft and borderRight
+  by?: ResponsiveStyle | string | number; // shorthand for borderTop and borderBottom
 
+}
 export type SjStyle = {
-  [Property in keyof CSSStyleDeclaration | keyof SjShorthandStyle] ? : ResponsiveStyle | string | number;
+  [Property in keyof CSSStyleDeclaration | keyof SjShorthandStyle | keyof SjShorthandCustomStyle] ? : ResponsiveStyle | string | number;
 };
 
 

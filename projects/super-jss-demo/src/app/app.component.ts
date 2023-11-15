@@ -6,8 +6,8 @@ import {SjStyle} from "../../../super-jss/src/lib/models/interfaces";
   standalone: true,
   imports: [SjDirective],
   template: `
-    <div [sj]="{d:'flex', p: {xs:3, md:7}, gap:{xs:0.5, md:5}, fxDir:'column', bg:{xs:'yellow', sm:'orange', md:'light-green'}, c:'purple'}">
-    <div [sj]="{fontWeight:'bold'}">BOLD</div>
+    <div [sj]="{d:'flex', px:{xs:1, md:8}, py: {xs:1.5, md:3}, gap:{xs:0.5, md:1}, fxDir:'column', bg:{xs:'yellow', sm:'orange', md:'light-green'}, c:'purple'}">
+    <div [sj]="{fontWeight:'bold', bg:'gray', mx:{xs:1, md:4}}">BOLD</div>
     <h1 [sj]>h1: The quick brown fox jumps over the lazy dog</h1>
     <h2 [sj]>h2: The quick brown fox jumps over the lazy dog</h2>
     <h3 [sj]>h3: The quick brown fox jumps over the lazy dog</h3>
