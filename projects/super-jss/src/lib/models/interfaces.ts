@@ -1,6 +1,22 @@
 export type SjTheme = {
   breakpoints: SjBreakPoints;
-  spacing: (factor: number) => string
+  spacing: (factor: number) => string,
+  typography: {
+    default: SjStyle,
+    H1: SjStyle,
+    H2: SjStyle,
+    H3: SjStyle,
+    H4: SjStyle,
+    H5: SjStyle,
+    H6: SjStyle,
+    span: SjStyle,
+    p: SjStyle,
+    body: SjStyle,
+    strong: SjStyle,
+    caption: SjStyle,
+    button: SjStyle
+
+  }
 }
 
 export type SjBreakPoints= {

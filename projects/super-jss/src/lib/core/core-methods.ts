@@ -100,6 +100,20 @@ const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
     // Add other shorthand mappings as needed
 };
 
+export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
+    // Loop through each typography style in the theme
+    Object.keys(theme.typography).forEach(key => {
+        // Set the default style to the default typography style
+        const jss: SjStyle = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
+        // Get the specific style for the current element if it exists
+        const specificStyle: SjStyle | undefined = theme.typography[key as keyof typeof theme.typography];
+        // If the current element matches the current typography style, apply the style to the element
+        if (el.nodeName === key && specificStyle) {
+            applyResponsiveStyle(el, { ...jss, ...specificStyle }, screenWidth, theme);
+        }
+    });
+};
+
 export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, screenWidth: number, theme:SjTheme): void => {
     if (typeof sjStyle === 'object' && sjStyle !== null) {
         Object.keys(sjStyle).forEach(key => {

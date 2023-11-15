@@ -5,7 +5,7 @@ import {
   OnInit, signal,
   ViewContainerRef,
 } from "@angular/core";
-import {activeListeners, applyResponsiveStyle} from "../core/core-methods";
+import {activeListeners, applyResponsiveStyle, applyTypography} from "../core/core-methods";
 import {SjStyle} from "../models/interfaces";
 import { SjThemeServiceService } from "../services/sj-theme-service.service";
 
@@ -16,11 +16,14 @@ import { SjThemeServiceService } from "../services/sj-theme-service.service";
 
 export class SjDirective implements OnDestroy, OnInit {
 
-  @Input() sj: SjStyle = {};
+  @Input() sj: SjStyle | undefined = {};
   screenWidth = signal(0);
   constructor(public vcr: ViewContainerRef, public sjt: SjThemeServiceService) {
     effect(() => {
-      applyResponsiveStyle(this.vcr.element.nativeElement, this.sj, this.screenWidth(), sjt.sjTheme());
+      applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), this.screenWidth());
+      if(this.sj){
+        applyResponsiveStyle(this.vcr.element.nativeElement, this.sj, this.screenWidth(), sjt.sjTheme());
+      }
     })
   }
   ngOnInit() {
