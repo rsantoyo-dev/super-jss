@@ -48,6 +48,7 @@ const applyStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaratio
 };
 
 const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
+    // Padding and Margin
     p: 'padding',
     pt: 'paddingTop',
     pr: 'paddingRight',
@@ -58,8 +59,44 @@ const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
     mr: 'marginRight',
     mb: 'marginBottom',
     ml: 'marginLeft',
+
+    // Sizes
+    w: 'width',
+    h: 'height',
+    minW: 'minWidth',
+    minH: 'minHeight',
+    maxW: 'maxWidth',
+    maxH: 'maxHeight',
+
+    // Borders
+    b: 'border',
+    bt: 'borderTop',
+    br: 'borderRight',
+    bb: 'borderBottom',
+    bl: 'borderLeft',
+    bs: 'borderStyle',
+    bw: 'borderWidth',
+    bc: 'borderColor',
+    brad: 'borderRadius',
+
+    // Colors
+    bg: 'backgroundColor',
+    c: 'color',
+
+    // Flexbox
     d: 'display',
     fxDir: 'flexDirection',
+    fxWrap: 'flexWrap',
+    fxFlow: 'flexFlow',
+    fxJustify: 'justifyContent',
+    fxAItems: 'alignItems',
+    fxAContent: 'alignContent',
+    fxOrder: 'order',
+    fxGrow: 'flexGrow',
+    fxShrink: 'flexShrink',
+    fxBasis: 'flexBasis',
+    fxASelf: 'alignSelf',
+    // Skip px, py, mx, my, bx, by for now
     // Add other shorthand mappings as needed
 };
 
@@ -68,6 +105,7 @@ export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, scr
         Object.keys(sjStyle).forEach(key => {
             let cssKey = key as keyof CSSStyleDeclaration | keyof SjShorthandStyle;
             let value = sjStyle[cssKey];
+
             cssKey = shorthandMappings[cssKey] || cssKey;
             const cssDeclaration: Partial<CSSStyleDeclaration>= {[cssKey]:
                   typeof value === 'string' ? value :

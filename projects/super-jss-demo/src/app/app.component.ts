@@ -6,8 +6,8 @@ import {SjStyle} from "../../../super-jss/src/lib/models/interfaces";
   standalone: true,
   imports: [SjDirective],
   template: `
-    <div [sj]="{d:{xs:'flex', md:'block'}, p: {xs:3, md:7}, m: 1, fxDir:{xs: 'column', sm:'row'}, backgroundColor:'yellow', color:'purple'}">
-      <div>BOLD</div>
+    <div [sj]="{d:'flex', p: {xs:3, md:7}, gap:{xs:0.5, md:5}, fxDir:{xs:'column', md:'row'}, bg:{xs:'yellow', sm:'orange', md:'light-green'}, c:'purple'}">
+      <div [sj]="{fontWeight:'bold'}">BOLD</div>
       <div>hello</div>
     </div>
   `

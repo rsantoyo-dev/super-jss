@@ -17,7 +17,7 @@ import { SjThemeServiceService } from "../services/sj-theme-service.service";
 export class SjDirective implements OnDestroy, OnInit {
 
   @Input() sj: SjStyle = {};
-  screenWidth = signal(window.innerWidth);
+  screenWidth = signal(0);
   constructor(public vcr: ViewContainerRef, public sjt: SjThemeServiceService) {
     effect(() => {
       applyResponsiveStyle(this.vcr.element.nativeElement, this.sj, this.screenWidth(), sjt.sjTheme());
