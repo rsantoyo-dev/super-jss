@@ -6,6 +6,8 @@ import {SjTheme} from '../models/interfaces';
 })
 export class SjThemeServiceService {
 
+
+
   private typography = signal({
     default: {fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', fontSize: 1, lineHeight: 1.6},
     H1: {fontSize: {xs: 2.5, md: 3.5}, fontWeight: '600', lineHeight: 2.5},
@@ -33,7 +35,7 @@ export class SjThemeServiceService {
     700: '#1E88E5',
     800: '#1976D2',
     900: '#1565C0',
-    contrast: '#f59242'
+    contrast: '#c26d29'
   },
     indigo: {
     50: '#E8EAF6',
@@ -173,61 +175,61 @@ export class SjThemeServiceService {
         main: this.colors().blue[500],
         light: this.colors().blue[300],
         dark: this.colors().blue[700],
-        contrastText: this.colors().white,
+        contrast: this.colors().yellow[500]
       },
       secondary: {
         main: this.colors().indigo[500],
         light: this.colors().indigo[300],
         dark: this.colors().indigo[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       tertiary: {
         main: this.colors().teal[500],
         light: this.colors().teal[300],
         dark: this.colors().teal[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       success: {
         main: this.colors().green[500],
         light: this.colors().green[300],
         dark: this.colors().green[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       info: {
         main: this.colors().cyan[500],
         light: this.colors().cyan[300],
         dark: this.colors().cyan[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       warning: {
         main: this.colors().orange[500],
         light: this.colors().orange[300],
         dark: this.colors().orange[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       error: {
         main: this.colors().red[500],
         light: this.colors().red[300],
         dark: this.colors().red[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       dark: {
         main: this.colors().gray[800],
         light: this.colors().gray[600],
         dark: this.colors().black,
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       neutral: {
         main: this.colors().gray[500],
         light: this.colors().gray[300],
         dark: this.colors().gray[700],
-        contrastText: this.colors().gray[50],
+        contrast: this.colors().gray[50],
       },
       light: {
         main: this.colors().gray[200],
         light: this.colors().gray[50],
         dark: this.colors().gray[400],
-        contrastText: this.colors().gray[900],
+        contrast: this.colors().gray[900],
       }
     })
 

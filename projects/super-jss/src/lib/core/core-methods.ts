@@ -8,7 +8,7 @@ import {
 } from "../models/interfaces";
 
 export const activeListeners = signal(false);
-const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
+export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
     let bp = 'xs'
     for (const key of Object.keys(breakpoints)) {
         const breakpoint = key as keyof SjBreakPoints;
@@ -153,23 +153,32 @@ const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclara
         // Apply each style property to the element, using type assertion
         let value = styleValue[cssKey];
         if (value !== undefined) {
-            // here is where we apply the style to the element
-            if(value === 'primary.main' || value === 'primary'){
-                value = theme.palette.primary.main;
-            }
-            if(value === 'primary.light'){
-                value = theme.palette.primary.light;
-            }
-            if(value === 'secondary.main' || value === 'secondary'){
-                value = theme.palette.secondary.main;
-            }
-            if(value === 'tertiary.main' || value === 'tertiary'){
-                value = theme.palette.tertiary.main;
-            }
+            value = resolveThemeColor(value as string, theme);
             (element.style as any)[cssKey] = value;
         }
     });
 };
+
+
+function resolveThemeColor(value: string, theme: SjTheme): string {
+    const themeKeyParts = value.split('.');
+    if (themeKeyParts.length === 1 && value in theme.palette) {
+        // If only 'primary', 'secondary', etc., use the '.main' shade by default
+        return theme.palette[value as keyof typeof theme.palette].main;
+    } else if (themeKeyParts.length === 2) {
+        // For specific shades like 'primary.light'
+        const colorCategory = themeKeyParts[0];
+        const colorShade = themeKeyParts[1];
+
+        if (colorCategory in theme.palette) {
+            const colorObject = theme.palette[colorCategory as keyof typeof theme.palette];
+            return colorObject[colorShade as keyof typeof colorObject] || value;
+        }
+    }
+
+    // Return the original value if it doesn't match the theme structure
+    return value;
+}
 
 
 export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {

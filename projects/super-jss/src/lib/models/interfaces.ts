@@ -2,7 +2,7 @@ export type SjThemeColorOption = {
   main: string,
   light: string,
   dark: string,
-  contrastText: string,
+  contrast: string,
 }
 export type SjColorOption = {
   50: string,
