@@ -1,22 +1,74 @@
+export type SjThemeColorOption = {
+  main: string,
+  light: string,
+  dark: string,
+  contrastText: string,
+}
+export type SjColorOption = {
+  50: string,
+  100: string,
+  200: string,
+  300: string,
+  400: string,
+  500: string, //default
+  600: string,
+  700: string,
+  800: string,
+  900: string,
+  contrast: string,
+}
+
+export type SjColors={
+  blue: SjColorOption,
+    indigo: SjColorOption,
+    purple: SjColorOption,
+    pink: SjColorOption,
+    red: SjColorOption,
+    orange: SjColorOption,
+    yellow: SjColorOption,
+    green: SjColorOption,
+    teal: SjColorOption,
+    cyan: SjColorOption,
+    gray: SjColorOption,
+    black: string,
+    white: string
+}
+
+export type SjPalette={
+  primary: SjThemeColorOption
+  secondary: SjThemeColorOption,
+  tertiary: SjThemeColorOption,
+  success: SjThemeColorOption,
+  info: SjThemeColorOption,
+  warning: SjThemeColorOption,
+  error: SjThemeColorOption,
+  dark: SjThemeColorOption,
+  neutral: SjThemeColorOption,
+  light: SjThemeColorOption
+}
+
+export type SjTypography={
+  default: SjStyle,
+  H1: SjStyle,
+  H2: SjStyle,
+  H3: SjStyle,
+  H4: SjStyle,
+  H5: SjStyle,
+  H6: SjStyle,
+  span: SjStyle,
+  p: SjStyle,
+  body: SjStyle,
+  strong: SjStyle,
+  caption: SjStyle,
+  button: SjStyle
+}
+
 export type SjTheme = {
   breakpoints: SjBreakPoints;
   spacing: (factor: number) => string,
-  typography: {
-    default: SjStyle,
-    H1: SjStyle,
-    H2: SjStyle,
-    H3: SjStyle,
-    H4: SjStyle,
-    H5: SjStyle,
-    H6: SjStyle,
-    span: SjStyle,
-    p: SjStyle,
-    body: SjStyle,
-    strong: SjStyle,
-    caption: SjStyle,
-    button: SjStyle
-
-  }
+  typography: SjTypography,
+  colors: SjColors,
+  palette: SjPalette
 }
 
 export type SjBreakPoints= {

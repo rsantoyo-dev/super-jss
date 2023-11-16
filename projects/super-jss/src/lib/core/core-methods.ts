@@ -116,7 +116,7 @@ function applySjCustomShorthand(element: HTMLElement, key: keyof SjShorthandCust
               : typeof value === 'number' ? theme.spacing(value)
                 : getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
         };
-        applyCssStyle(element, cssDeclaration);
+        applyCssStyle(element, cssDeclaration, theme);
     });
 
 }
@@ -130,7 +130,7 @@ function applySjStyle(element: HTMLElement, key: keyof SjStyle, sjStyle: SjStyle
             typeof value === 'number' ? theme.spacing(value) :
               getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
     }
-    applyCssStyle(element, cssDeclaration);
+    applyCssStyle(element, cssDeclaration, theme);
 }
 
 export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, screenWidth: number, theme:SjTheme): void => {
@@ -143,8 +143,7 @@ export const applyResponsiveStyle = (element: HTMLElement, sjStyle: SjStyle, scr
     }
 };
 
-const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaration>): void => {
-    console.log(styleValue)
+const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclaration>, theme:SjTheme): void => {
     Object.keys(styleValue).forEach(key => {
         const cssKey = key as keyof CSSStyleDeclaration;
         // Skip read-only properties
@@ -152,8 +151,21 @@ const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclara
             return;
         }
         // Apply each style property to the element, using type assertion
-        const value = styleValue[cssKey];
+        let value = styleValue[cssKey];
         if (value !== undefined) {
+            // here is where we apply the style to the element
+            if(value === 'primary.main' || value === 'primary'){
+                value = theme.palette.primary.main;
+            }
+            if(value === 'primary.light'){
+                value = theme.palette.primary.light;
+            }
+            if(value === 'secondary.main' || value === 'secondary'){
+                value = theme.palette.secondary.main;
+            }
+            if(value === 'tertiary.main' || value === 'tertiary'){
+                value = theme.palette.tertiary.main;
+            }
             (element.style as any)[cssKey] = value;
         }
     });
