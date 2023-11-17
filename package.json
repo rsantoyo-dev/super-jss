@@ -37,6 +37,7 @@
     "@angular/cli": "^17.0.0",
     "@angular/compiler-cli": "^17.0.0",
     "@compodoc/compodoc": "^1.1.21",
+    "@netlify-builder/deploy": "5.0.0",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
