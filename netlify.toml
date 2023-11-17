@@ -1,6 +1,7 @@
 [build]
-publish = "dist/super-jss-demo/browser"
+publish = "dist/super-jss-demo"
 command = "ng build super-jss-demo"
+
 [[redirects]]
 from = "/*"
 to = "/index.html"
