@@ -49,8 +49,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "prerender": {
+              "discoverRoutes": false
+            },
             "outputPath": "dist/super-jss-demo/browser",
             "index": "projects/super-jss-demo/src/index.html",
             "main": "projects/super-jss-demo/src/main.ts",

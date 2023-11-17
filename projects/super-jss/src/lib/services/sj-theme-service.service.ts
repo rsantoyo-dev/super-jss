@@ -1,5 +1,6 @@
-import {Injectable, signal} from '@angular/core';
+
 import {SjTheme} from '../models/interfaces';
+import {Injectable, signal} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
