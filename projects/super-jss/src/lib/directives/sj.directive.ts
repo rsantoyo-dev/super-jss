@@ -1,5 +1,4 @@
 import {
-  computed,
   Directive, effect,
   Input,
   OnDestroy,
@@ -18,38 +17,32 @@ import { SjThemeServiceService } from "../services/sj-theme-service.service";
 export class SjDirective implements OnDestroy, OnInit {
 
   @Input() sj: SjStyle | undefined = {};
-
-  screenWidth = signal(0);
-
-  breakpoint = computed(() =>
-    getCurrentBreakpoint(this.sjt.sjTheme().breakpoints, this.screenWidth())
-  );
-
-  currentBreakpoint = '';
-
+  breakpoint = signal('xs');
   constructor(public vcr: ViewContainerRef, private sjt: SjThemeServiceService) {
     effect(() => {
-      if(this.currentBreakpoint !== this.breakpoint()) {
-        applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), this.screenWidth());
+      if(this.breakpoint()){
+        applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), window.innerWidth);
         if(this.sj){
-          applyResponsiveStyle(this.vcr.element.nativeElement, this.sj, this.screenWidth(), sjt.sjTheme());
+          applyResponsiveStyle(this.vcr.element.nativeElement, this.sj, window.innerWidth, sjt.sjTheme());
         }
-        this.currentBreakpoint = this.breakpoint();
       }
     })
   }
 
   ngOnInit() {
     if (!activeListeners()) {
-      window.addEventListener('resize', () => this.screenWidth.set(window.innerWidth));
-      window.addEventListener('load', () => this.screenWidth.set(window.innerWidth));
+      window.addEventListener('resize', () => this.updateRender());
+      window.addEventListener('load', () => this.updateRender());
       activeListeners.set(true);
     }
   }
+  updateRender(){
+    this.breakpoint.set(getCurrentBreakpoint(this.sjt.sjTheme().breakpoints, window.innerWidth))
+  }
   ngOnDestroy() {
     if(activeListeners()) {
-      window.removeEventListener('resize', this.screenWidth);
-      window.removeEventListener('load', this.screenWidth);
+      window.removeEventListener('resize', this.updateRender);
+      window.removeEventListener('load', this.updateRender);
     }
   }
 }

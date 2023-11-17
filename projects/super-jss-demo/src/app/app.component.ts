@@ -6,10 +6,10 @@ import {SjStyle} from "../../../super-jss/src/lib/models/interfaces";
   standalone: true,
   imports: [SjDirective],
   template: `
-    <div [sj]="{d:'flex', px:{xs:1, md:8}, py: {xs:1.5, md:3}, gap:{xs:0.5, md:1}, fxDir:'column', bg:{xs:'primary.main', sm:'secondary', md:'tertiary'}, c:'primary.contrast'}">
-    <div [sj]="{fontWeight:'bold', bg:'gray', mx:{xs:1, md:4}}">BOLD</div>
+    <div [sj]="{d:'flex', px:{sm:3, md:8}, gap:0.5, fxDir:'column', bg:{xs:'primary.main', sm:'secondary', md:'tertiary'}, c:'primary.contrast'}">
+   <!-- <div [sj]="{fontWeight:'bold', bg:'gray', mx:{xs:1, md:4}}">BOLD</div>-->
     <h1 [sj]>h1: The quick brown fox jumps over the lazy dog</h1>
-    <h2 [sj]>h2: The quick brown fox jumps over the lazy dog</h2>
+    <!--<h2 [sj]>h2: The quick brown fox jumps over the lazy dog</h2>
     <h3 [sj]>h3: The quick brown fox jumps over the lazy dog</h3>
     <h4 [sj]>h4: The quick brown fox jumps over the lazy dog</h4>
     <h5 [sj]>h5: The quick brown fox jumps over the lazy dog</h5>
@@ -19,7 +19,7 @@ import {SjStyle} from "../../../super-jss/src/lib/models/interfaces";
     <strong [sj]>strong: The quick brown fox jumps over the lazy dog</strong>
     <body [sj]>body: The quick brown fox jumps over the lazy dog</body>
     <caption [sj]>caption: The quick brown fox jumps over the lazy dog</caption>
-    <button [sj]>button: The quick brown fox jumps over the lazy dog</button>
+    <button [sj]>button: The quick brown fox jumps over the lazy dog</button>-->
     </div>
   `
 })

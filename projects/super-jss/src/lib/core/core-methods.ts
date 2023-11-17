@@ -12,23 +12,36 @@ export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: numb
     let bp = 'xs'
     for (const key of Object.keys(breakpoints)) {
         const breakpoint = key as keyof SjBreakPoints;
-        const breakpointValue = breakpoints[breakpoint];
-        if (breakpointValue <= screenWidth) {
-            bp = key
-        }
+        bp = breakpoints[breakpoint] <= screenWidth ? breakpoint : bp;
     }
     return bp;
 }
-const getStyleByScreenWidth = (value: ResponsiveStyle, sjTheme:SjTheme, screenWidth: number): string | undefined => {
-    const responsiveStyle= value;
-    const currentBreakpoint:string = getCurrentBreakpoint(sjTheme.breakpoints, screenWidth) ;
+
+const getStyleByScreenWidth = (responsiveStyle: ResponsiveStyle, sjTheme:SjTheme, screenWidth: number): string | undefined => {
     let styleInBreakpoint: string | number | undefined;
-    styleInBreakpoint = responsiveStyle[currentBreakpoint as keyof ResponsiveStyle];
+    let rStyle: ResponsiveStyle = responsiveStyle;
+    rStyle['xs'] = rStyle['xs'] === undefined ? 'initial' : rStyle['xs'];
+    rStyle = reOrderResponsiveStyle(rStyle);
+    Object.keys(rStyle).forEach(key => {
+        styleInBreakpoint = (sjTheme.breakpoints[key as keyof SjBreakPoints] <= screenWidth) ?
+          rStyle[key as keyof ResponsiveStyle] :
+          styleInBreakpoint;
+    });
     if(typeof styleInBreakpoint === 'number'){
         styleInBreakpoint = sjTheme.spacing(styleInBreakpoint);
     }
     return styleInBreakpoint;
 }
+
+const reOrderResponsiveStyle = (responsiveStyle: ResponsiveStyle): ResponsiveStyle => {
+    let reorderedValue: ResponsiveStyle = { xs: responsiveStyle['xs'] };
+    Object.keys(responsiveStyle).forEach(key => {
+        if (key !== 'xs') {
+            reorderedValue[key  as keyof ResponsiveStyle] = responsiveStyle[key as keyof ResponsiveStyle];
+        }
+    });
+    return reorderedValue;
+};
 
 const shorthandMappings: { [key: string]: keyof CSSStyleDeclaration } = {
     // Padding and Margin
@@ -160,7 +173,7 @@ const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclara
 };
 
 
-function resolveThemeColor(value: string, theme: SjTheme): string {
+const resolveThemeColor = (value: string, theme: SjTheme): string => {
     const themeKeyParts = value.split('.');
     if (themeKeyParts.length === 1 && value in theme.palette) {
         // If only 'primary', 'secondary', etc., use the '.main' shade by default
