@@ -4,7 +4,7 @@ import {
     SjBreakPoints,
     SjStyle,
     SjTheme,
-    SjShorthandStyle, SjShorthandCustomStyle,
+    SjShorthandStyle, SjShorthandCustomStyle, SjColors,
 } from "../models/interfaces";
 
 export const activeListeners = signal(false);
@@ -175,13 +175,27 @@ const applyCssStyle = (element: HTMLElement, styleValue: Partial<CSSStyleDeclara
 
 const resolveThemeColor = (value: string, theme: SjTheme): string => {
     const themeKeyParts = value.split('.');
-    if (themeKeyParts.length === 1 && value in theme.palette) {
+    if (themeKeyParts.length === 1 && value in theme.palette || value in theme.colors) {
         // If only 'primary', 'secondary', etc., use the '.main' shade by default
-        return theme.palette[value as keyof typeof theme.palette].main;
+       // return theme.palette[value as keyof typeof theme.palette].main;
+        if (value in theme.colors) {
+            const colorObject = theme.colors[value as keyof typeof theme.colors];
+            return typeof colorObject === 'object' ? colorObject['500'] : colorObject;
+        }
+
+        // If only 'primary', 'secondary', etc., use the '.main' shade by default
+        if (value in theme.palette) {
+            return theme.palette[value as keyof typeof theme.palette].main;
+        }
     } else if (themeKeyParts.length === 2) {
         // For specific shades like 'primary.light'
         const colorCategory = themeKeyParts[0];
         const colorShade = themeKeyParts[1];
+
+        if (colorCategory in theme.colors) {
+            const colorObject = theme.colors[colorCategory as keyof typeof theme.colors];
+            return typeof colorObject === 'object' ? colorObject[colorShade as keyof typeof colorObject] : colorObject;
+        }
 
         if (colorCategory in theme.palette) {
             const colorObject = theme.palette[colorCategory as keyof typeof theme.palette];
