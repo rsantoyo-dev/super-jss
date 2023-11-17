@@ -51,7 +51,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/super-jss-demo",
+            "outputPath": "dist/super-jss-demo/browser",
             "index": "projects/super-jss-demo/src/index.html",
             "main": "projects/super-jss-demo/src/main.ts",
             "polyfills": "projects/super-jss-demo/src/polyfills.ts",
@@ -134,6 +134,67 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/super-jss-demo/server",
+            "main": "projects/super-jss-demo/server.ts",
+            "tsConfig": "projects/super-jss-demo/tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "projects/super-jss-demo/src/environments/environment.ts",
+                  "with": "projects/super-jss-demo/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "super-jss-demo:build:development",
+              "serverTarget": "super-jss-demo:server:development"
+            },
+            "production": {
+              "browserTarget": "super-jss-demo:build:production",
+              "serverTarget": "super-jss-demo:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "super-jss-demo:build:production",
+              "serverTarget": "super-jss-demo:server:production"
+            },
+            "development": {
+              "browserTarget": "super-jss-demo:build:development",
+              "serverTarget": "super-jss-demo:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

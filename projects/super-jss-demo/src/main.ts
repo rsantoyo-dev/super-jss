@@ -1,5 +1,7 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, provideClientHydration } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 
-bootstrapApplication(AppComponent).catch(e => console.error(e));
+bootstrapApplication(AppComponent, {
+  providers: [provideClientHydration()]
+}).catch(e => console.error(e));
 
