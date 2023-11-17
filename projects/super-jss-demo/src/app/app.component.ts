@@ -7,7 +7,7 @@ import {SjStyle} from "../../../super-jss/src/lib/models/interfaces";
   imports: [SjDirective],
   template: `
     <div [sj]="{d:'flex', px:{xs:1, md:8}, py: {xs:1.5, md:3}, gap:{xs:1, md:2}, fxDir:'column', bg:{xs:'primary', sm:'secondary', md:'tertiary'}, c:'primary.contrast'}">
-    <div [sj]="{fontWeight:'bold', bg:'gray', mx:{xs:1, md:4}}">BOLD</div>
+    <div [sj]="{fontWeight:'bold', bg:'gray', mx:{xs:1, md:4}}">hi BOLD</div>
     <h1 [sj]>h1: The quick brown fox jumps over the lazy dog</h1>
     <h2 [sj]>h2: The quick brown fox jumps over the lazy dog</h2>
     <h3 [sj]>h3: The quick brown fox jumps over the lazy dog</h3>
