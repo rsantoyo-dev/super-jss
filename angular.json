@@ -103,10 +103,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "super-jss-demo:build:production"
+              "browserTarget": "super-jss-demo:build:production"
             },
             "development": {
-              "buildTarget": "super-jss-demo:build:development"
+              "browserTarget": "super-jss-demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -114,7 +114,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "super-jss-demo:build"
+            "browserTarget": "super-jss-demo:build"
           }
         },
         "test": {
