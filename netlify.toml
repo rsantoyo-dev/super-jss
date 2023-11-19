@@ -1,5 +1,5 @@
 [build]
-publish = "dist/super-jss-demo"
+publish = "dist/super-jss-demo/browser"
 command = "ng build super-jss-demo"
 
 [[redirects]]
