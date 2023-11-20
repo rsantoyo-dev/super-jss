@@ -7,10 +7,9 @@ import {
 } from "@angular/core";
 import {activeListeners, applyResponsiveStyle, applyTypography, getCurrentBreakpoint} from "../core/core-methods";
 import { SjStyle} from "../models/interfaces";
-import { SjThemeServiceService } from "../services/sj-theme-service.service";
+import { SjThemeService } from "../services/sj-theme.service";
 
 @Directive({
-  standalone: true,
   selector: '[sj]'
 })
 
@@ -18,7 +17,8 @@ export class SjDirective implements OnDestroy, OnInit {
 
   @Input() sj: SjStyle | undefined = {};
   breakpoint = signal('xs');
-  constructor(public vcr: ViewContainerRef, private sjt: SjThemeServiceService) {
+  constructor(public vcr: ViewContainerRef, private sjt: SjThemeService) {
+
     effect(() => {
       if(this.breakpoint()){
         applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), window.innerWidth);
@@ -30,11 +30,11 @@ export class SjDirective implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    if (!activeListeners()) {
+   // if (!activeListeners()) {
       window.addEventListener('resize', () => this.updateRender());
       window.addEventListener('load', () => this.updateRender());
       activeListeners.set(true);
-    }
+   // }
   }
   updateRender(){
     this.breakpoint.set(getCurrentBreakpoint(this.sjt.sjTheme().breakpoints, window.innerWidth))

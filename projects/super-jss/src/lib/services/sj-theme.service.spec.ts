@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SjThemeServiceService } from './sj-theme-service.service';
+import { SjThemeServiceService } from './sj-theme.service';
 
 describe('SjThemeServiceService', () => {
   let service: SjThemeServiceService;

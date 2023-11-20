@@ -1,11 +1,10 @@
 import {Injectable, signal} from '@angular/core';
-import {SjTheme} from '../models/interfaces';
+import {SjPalette, SjTheme} from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SjThemeServiceService {
-
+export class SjThemeService {
 
 
   private typography = signal({
@@ -233,14 +232,25 @@ export class SjThemeServiceService {
       }
     })
 
-  sjTheme = signal<SjTheme>({
+  defaultTheme:SjTheme = {
     breakpoints: {xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560},
     spacing: (factor: number): string => `${factor}rem`,
     typography: this.typography(),
     colors: this.colors(),
     palette: this.palette(),
-  });
+  }
+
+  sjTheme = signal<SjTheme>(this.defaultTheme);
+
+  
+
+  setPalette(p: Partial<SjPalette>) {
+    this.palette.set({...this.palette(), ...p});
+    this.sjTheme.set({...this.sjTheme(), palette: this.palette()});
+  }
 
   constructor() { }
+
+
 }
 
