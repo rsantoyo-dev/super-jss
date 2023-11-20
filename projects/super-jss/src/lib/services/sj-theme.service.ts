@@ -1,5 +1,6 @@
-import {Injectable, signal} from '@angular/core';
-import {SjBreakPoints, SjPalette, SjTheme} from '../models/interfaces';
+
+import {Injectable, computed, signal} from '@angular/core';
+import {SjBreakPoints, SjPalette} from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -232,26 +233,21 @@ export class SjThemeService {
       }
     })
 
-  public defaultTheme:SjTheme = {
-    breakpoints: this.breakpoints(),
-    spacing: (factor: number): string => `${factor}rem`,
-    typography: this.typography(),
-    colors: this.colors(),
-    palette: this.palette(),
-  }
-
-  sjTheme = signal<SjTheme>(this.defaultTheme);
-
-  
+  sjTheme = computed(() => {
+    return {
+      breakpoints: this.breakpoints(),
+      spacing: (factor: number): string => `${factor}rem`,
+      typography: this.typography(),
+      colors: this.colors(),
+      palette: this.palette(),
+    }
+  });
 
   public setPalette(palette: Partial<SjPalette>) {
-    this.palette.set({...this.palette(), ...palette});
-    this.sjTheme.set({...this.sjTheme(), palette: this.palette()});
-  }
+    this.palette.set({ ...this.palette(), ...palette });  }
 
   public setBreakpoints(breakpoints: Partial<SjBreakPoints>) {
     this.breakpoints.set({...this.breakpoints(), ...breakpoints});
-    this.sjTheme.set({...this.sjTheme(), breakpoints: this.breakpoints()});
   }
 
   constructor() { }

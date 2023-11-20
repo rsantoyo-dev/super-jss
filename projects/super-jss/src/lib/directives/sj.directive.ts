@@ -7,7 +7,8 @@ import {
 } from "@angular/core";
 import {activeListeners, applyResponsiveStyle, applyTypography, getCurrentBreakpoint} from "../core/core-methods";
 import { SjStyle} from "../models/interfaces";
-import { SjThemeService } from "../services/sj-theme.service";
+import {SjThemeService} from "../services";
+
 
 @Directive({
   selector: '[sj]'
@@ -15,7 +16,7 @@ import { SjThemeService } from "../services/sj-theme.service";
 
 export class SjDirective implements OnDestroy, OnInit {
 
-  @Input() sj: SjStyle | undefined = {};
+  @Input() sj: SjStyle | SjStyle[] | undefined;
   breakpoint = signal('xs');
   constructor(public vcr: ViewContainerRef, private sjt: SjThemeService) {
 
@@ -23,7 +24,12 @@ export class SjDirective implements OnDestroy, OnInit {
       if(this.breakpoint()){
         applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), window.innerWidth);
         if(this.sj){
-          applyResponsiveStyle(this.vcr.element.nativeElement, this.sj, window.innerWidth, sjt.sjTheme());
+          if(Array.isArray(this.sj)){
+            this.sj.forEach(style => applyResponsiveStyle(this.vcr.element.nativeElement, style as SjStyle, window.innerWidth, this.sjt.sjTheme()));
+          }
+          else{
+            applyResponsiveStyle(this.vcr.element.nativeElement, this.sj as SjStyle, window.innerWidth, this.sjt.sjTheme());
+          }
         }
       }
     })

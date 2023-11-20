@@ -41,22 +41,37 @@ import { SjThemeService } from 'projects/super-jss/src/lib';
   `,
 })
 export class HeaderComponent {
-  constructor(private th:SjThemeService) {}
+
+  defaultThemeConfig = this.th.sjTheme();
+
+  toggleTheme = signal(false);
+
+  constructor(private th:SjThemeService) {
+
+  }
 
 
   updateTheme() {
     console.log('updating theme');
-    this.th.setPalette({
-      primary: {
-        main: 'purple',
-        light: 'purple.700',
-        dark: 'purple.200',
-        contrast: 'yellow.600',
-      }      
-    });
+    if(!this.toggleTheme()) {
+      this.th.setPalette({
+        primary: {
+          main: 'purple',
+          light: 'purple.700',
+          dark: 'purple.200',
+          contrast: 'yellow.600',
+        }      
+      });
+  
+      this.th.setBreakpoints({
+        sm: 630,
+      });
+    }
+    else{
+      this.th.setPalette(this.defaultThemeConfig.palette);
+    }
 
-    this.th.setBreakpoints({
-      sm: 630,
-    });
+    this.toggleTheme.set(!this.toggleTheme());
+    
   }
 }
