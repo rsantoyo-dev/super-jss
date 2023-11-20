@@ -54,5 +54,9 @@ export class HeaderComponent {
         contrast: 'yellow.600',
       }      
     });
+
+    this.th.setBreakpoints({
+      sm: 630,
+    });
   }
 }

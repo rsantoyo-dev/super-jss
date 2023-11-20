@@ -8,7 +8,7 @@ import { SuperJssModule } from "projects/super-jss/src/lib/super-jss.module";
   standalone: true,
     imports: [SuperJssModule, HeaderComponent],
     template: `
-    <div [sj]="{bg:{xs:'red', sm:'blue'}}">
+    <div [sj]="{bg:{xs:'red', sm:'blue'},}">
     <app-header></app-header>
       ss
     </div>
