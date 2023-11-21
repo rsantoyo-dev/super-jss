@@ -56,7 +56,6 @@ export class HeaderComponent {
   }
 
   updateTheme() {
-    console.log('updating theme');
     if(!this.toggleTheme()) {
       this.th.setPalette({
         primary: {

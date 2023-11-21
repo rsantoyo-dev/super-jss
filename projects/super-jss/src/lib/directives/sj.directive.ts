@@ -2,10 +2,10 @@ import {
   Directive, effect,
   Input,
   OnDestroy,
-  OnInit, signal,
+  OnInit,
   ViewContainerRef,
 } from "@angular/core";
-import {activeListeners, applyResponsiveStyle, applyTypography, getCurrentBreakpoint} from "../core/core-methods";
+import {applyResponsiveStyle, applyTypography} from "../core/core-methods";
 import { SjStyle} from "../models/interfaces";
 import {SjThemeService} from "../services";
 
@@ -17,11 +17,11 @@ import {SjThemeService} from "../services";
 export class SjDirective implements OnDestroy, OnInit {
 
   @Input() sj: SjStyle | SjStyle[] | undefined;
-  breakpoint = signal('xs');
+
   constructor(public vcr: ViewContainerRef, private sjt: SjThemeService) {
 
     effect(() => {
-      if(this.breakpoint()){
+      if(this.sjt.currentBreakpoint()){
         applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), window.innerWidth);
         if(this.sj){
           if(Array.isArray(this.sj)){
@@ -37,18 +37,18 @@ export class SjDirective implements OnDestroy, OnInit {
 
   ngOnInit() {
    // if (!activeListeners()) {
-      window.addEventListener('resize', () => this.updateRender());
+     /* window.addEventListener('resize', () => this.updateRender());
       window.addEventListener('load', () => this.updateRender());
-      activeListeners.set(true);
+      activeListeners.set(true);*/
    // }
   }
-  updateRender(){
+/*  updateRender(){
     this.breakpoint.set(getCurrentBreakpoint(this.sjt.sjTheme().breakpoints, window.innerWidth))
-  }
+  }*/
   ngOnDestroy() {
-    if(activeListeners()) {
+    /*if(activeListeners()) {
       window.removeEventListener('resize', this.updateRender);
       window.removeEventListener('load', this.updateRender);
-    }
+    }*/
   }
 }

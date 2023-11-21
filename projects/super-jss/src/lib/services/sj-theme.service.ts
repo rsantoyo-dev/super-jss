@@ -1,11 +1,12 @@
 
-import {Injectable, computed, signal} from '@angular/core';
+import {Injectable, computed, signal, OnDestroy} from '@angular/core';
 import {SjBreakPoints, SjPalette} from '../models/interfaces';
+import {getCurrentBreakpoint} from "../core/core-methods";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SjThemeService {
+export class SjThemeService implements OnDestroy{
 
   breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
   typography = signal({
@@ -241,7 +242,10 @@ export class SjThemeService {
       colors: this.colors(),
       palette: this.palette(),
     }
+
+
   });
+  currentBreakpoint = signal('xs');
 
   public setPalette(palette: Partial<SjPalette>) {
     this.palette.set({ ...this.palette(), ...palette });  }
@@ -250,8 +254,19 @@ export class SjThemeService {
     this.breakpoints.set({...this.breakpoints(), ...breakpoints});
   }
 
-  constructor() { }
+  constructor() {
+    window.addEventListener('resize', () => this.updateRender());
+    window.addEventListener('load', () => this.updateRender());
+  }
 
+  private updateRender(){
+    this.currentBreakpoint.set(getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.updateRender);
+    window.removeEventListener('load', this.updateRender);
+  }
 
 }
 
