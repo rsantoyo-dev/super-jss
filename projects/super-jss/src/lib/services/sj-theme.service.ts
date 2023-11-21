@@ -7,8 +7,8 @@ import {SjBreakPoints, SjPalette} from '../models/interfaces';
 })
 export class SjThemeService {
 
-  private breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
-  private typography = signal({
+  breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
+  typography = signal({
     default: {fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', fontSize: 1, lineHeight: 1.6},
     H1: {fontSize: {xs: 2.5, md: 3.5}, fontWeight: '600', lineHeight: 2.5},
     H2: {fontSize: {xs: 2, md: 3}, fontWeight: '600', lineHeight: 2.5},
@@ -23,7 +23,7 @@ export class SjThemeService {
     caption: {fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.6},
     button: {fontSize: 1, fontWeight: '500', lineHeight: 1.6}
   });
-  private colors = signal({
+  colors = signal({
     blue: {
     50: '#EFFAFF',
     100: '#E3F2FD',

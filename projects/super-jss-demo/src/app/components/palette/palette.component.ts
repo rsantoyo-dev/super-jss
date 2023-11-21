@@ -28,7 +28,6 @@ import { sjBorderShadow} from "../../sjStyling/sjStyles";
             padding: 1,
             margin: 0.5,
             backgroundColor: colorVariant
-
           }"
         >
           <span [sj]="{c:'neutral.dark'}">{{ colorVariant }}</span>

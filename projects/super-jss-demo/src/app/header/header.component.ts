@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import {Component, effect, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SuperJssModule } from 'projects/super-jss/src/lib/';
 import { SjThemeService } from 'projects/super-jss/src/lib';
+import {SjBreakPoints} from "../../../../super-jss/src/lib/models/interfaces";
 
 
 @Component({
@@ -15,7 +16,7 @@ import { SjThemeService } from 'projects/super-jss/src/lib';
         fxDir: 'column',
         fxAItems: 'center',
         fxJustify: 'center',
-        p: { xs: 1, sm: 2 },
+        p: { xs: 1, md: 3 },
         bg: { xs: 'primary', md: 'primary.light'}
       }">
       <h3 [sj]="{ color: 'primary.contrast' }">SUPER-JSS-DEMO</h3>
@@ -35,7 +36,7 @@ import { SjThemeService } from 'projects/super-jss/src/lib';
       }
     ">
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
-       <!--  sjBreakpoints: {{ JSON.stringify(myTheme().breakpoints) }} -->
+         sjBreakpoints: {{ JSON.stringify(breakpoints)}}
       </span>
     </div>
   `,
@@ -46,32 +47,38 @@ export class HeaderComponent {
 
   toggleTheme = signal(false);
 
+  breakpoints:SjBreakPoints = {xs: 0, sm: 0, md: 0, lg: 0, xl: 0, xxl: 0};
+
   constructor(private th:SjThemeService) {
-
+    effect(() => {
+      this.breakpoints = this.th.breakpoints();
+    })
   }
-
 
   updateTheme() {
     console.log('updating theme');
     if(!this.toggleTheme()) {
       this.th.setPalette({
         primary: {
-          main: 'purple',
-          light: 'purple.700',
-          dark: 'purple.200',
-          contrast: 'yellow.600',
-        }      
+          main: this.th.colors().purple[500],
+          light: this.th.colors().purple[200],
+          dark: this.th.colors().purple[700],
+          contrast: this.th.colors().orange[300],
+        }
       });
-  
       this.th.setBreakpoints({
         sm: 630,
+        md: 900,
       });
     }
     else{
       this.th.setPalette(this.defaultThemeConfig.palette);
+      this.th.setBreakpoints(this.defaultThemeConfig.breakpoints);
     }
 
     this.toggleTheme.set(!this.toggleTheme());
-    
+
   }
+
+  protected readonly JSON = JSON;
 }
