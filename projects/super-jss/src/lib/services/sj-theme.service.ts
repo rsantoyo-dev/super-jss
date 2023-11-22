@@ -11,31 +11,30 @@ export class SjThemeService implements OnDestroy{
   breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
   typography = signal({
     default: {fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', fontSize: 1, lineHeight: 1.6},
-    H1: {fontSize: {xs: 2.5, md: 3.5}, fontWeight: '600', lineHeight: 2.5},
-    H2: {fontSize: {xs: 2, md: 3}, fontWeight: '600', lineHeight: 2.5},
-    H3: {fontSize: {xs: 1.75, md: 2.5}, fontWeight: '600', lineHeight: 2},
-    H4: {fontSize: {xs: 1.5, md: 2}, fontWeight: '600', lineHeight: 1.7},
-    H5: {fontSize: {xs: 1.25, md: 1.75}, fontWeight: '600', lineHeight: 1.4},
+    H1: {fontSize: {xs: 2.5, md: 3.5}, fontWeight: '600', lineHeight: 4},
+    H2: {fontSize: {xs: 2, md: 3}, fontWeight: '600', lineHeight: 3.5},
+    H3: {fontSize: {xs: 1.75, md: 2.5}, fontWeight: '600', lineHeight: 3},
+    H4: {fontSize: {xs: 1.5, md: 2}, fontWeight: '600', lineHeight: 2},
+    H5: {fontSize: {xs: 1.25, md: 1.75}, fontWeight: '600', lineHeight: 2},
     H6: {fontSize: {xs: 1, md: 1.25}, fontWeight: '600', lineHeight: 1.5},
-    p: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.6},
-    span: {fontSize: 0.9, fontWeight: 'normal', lineHeight: 1.6},
-    strong: {fontSize: 1, fontWeight: 'bold', lineHeight: 1.6},
-    body: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.6},
-    caption: {fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.6},
-    button: {fontSize: 1, fontWeight: '500', lineHeight: 1.6}
+    p: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.4},
+    span: {fontSize: 0.9, fontWeight: 'normal', lineHeight: 1.2},
+    strong: {fontSize: 1, fontWeight: 'bold', lineHeight: 1.2},
+    body: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.2},
+    caption: {fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.2},
   });
   colors = signal({
     blue: {
-    50: '#EFFAFF',
-    100: '#E3F2FD',
-    200: '#BBDEFB',
-    300: '#90CAF9',
-    400: '#64B5F6',
-    500: '#42A5F5',
-    600: '#2196F3',
-    700: '#1E88E5',
-    800: '#1976D2',
-    900: '#1565C0',
+    50: '#E3F2FD',
+    100: '#BBDEFB',
+    200: '#90CAF9',
+    300: '#64B5F6',
+    400: '#42A5F5',
+    500: '#3498DB',
+    600: '#2E86C1',
+    700: '#1976D2',
+    800: '#1565C0',
+    900: '#0D47A1',
     contrast: '#c26d29'
   },
     indigo: {
@@ -83,11 +82,11 @@ export class SjThemeService implements OnDestroy{
       200: '#EF9A9A',
       300: '#E57373',
       400: '#EF5350',
-      500: '#F44336',
+      500: '#E74C3C',
       600: '#E53935',
       700: '#D32F2F',
       800: '#C62828',
-      900: '#B71C1C',
+      900: '#771010',
       contrast: '#f59242'
     },
     orange: {
@@ -96,11 +95,11 @@ export class SjThemeService implements OnDestroy{
       200: '#FFCC80',
       300: '#FFB74D',
       400: '#FFA726',
-      500: '#FF9800',
+      500: '#F39C12',
       600: '#FB8C00',
       700: '#F57C00',
       800: '#EF6C00',
-      900: '#E65100',
+      900: '#bb4600',
       contrast: '#f59242'
     },
     yellow: {
@@ -179,16 +178,16 @@ export class SjThemeService implements OnDestroy{
         contrast: this.colors().yellow[500]
       },
       secondary: {
-        main: this.colors().indigo[500],
-        light: this.colors().indigo[300],
-        dark: this.colors().indigo[700],
-        contrast: this.colors().gray[50],
+        main: this.colors().orange[500],
+        light: this.colors().orange[300],
+        dark: this.colors().orange[700],
+        contrast: this.colors().blue[300],
       },
       tertiary: {
-        main: this.colors().teal[500],
-        light: this.colors().teal[300],
-        dark: this.colors().teal[700],
-        contrast: this.colors().gray[50],
+        main: this.colors().red[500],
+        light: this.colors().red[300],
+        dark: this.colors().red[700],
+        contrast: this.colors().white,
       },
       success: {
         main: this.colors().green[500],
@@ -269,4 +268,7 @@ export class SjThemeService implements OnDestroy{
   }
 
 }
+
+
+
 

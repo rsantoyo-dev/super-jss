@@ -2,33 +2,34 @@ import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SuperJssModule } from 'projects/super-jss/src/lib';
-import { sjBorderShadow} from "../../sjStyling/sjStyles";
+import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({
   selector: 'app-palette',
   standalone: true,
   imports: [CommonModule, SuperJssModule],
   template: `
+    <h3 [sj]="{c: 'primary'}">Palette</h3>
     <div *ngFor="let color of demoColors()"
       [sj]="[{
         d: 'flex',
         fxDir: 'column',
-        m: 1,
+        my: 1,
         p: 1,
        }, sjBorderShadow]"
     >
-      <p [sj]="{p:1, c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
+      <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
       <div [sj]="{display:'flex', flexDirection:{xs:'column', md:'row'}}">
-        <div *ngFor="let colorVariant of color" [sj]="
+        <div *ngFor="let colorVariant of color" [sj]="[
           {
             display: 'flex',
             flexGrow: '1',
             flexDirection: 'column',
             alignItems: 'center',
-            padding: 1,
+            padding: 0.5,
             margin: 0.5,
             backgroundColor: colorVariant
-          }"
+          }, sjBorder]"
         >
           <span [sj]="{c:'neutral.dark'}">{{ colorVariant }}</span>
 
@@ -56,4 +57,7 @@ export class PaletteComponent {
   ]);
 
   protected readonly sjBorderShadow = sjBorderShadow;
+  protected readonly sjBorder = sjBorder;
 }
+
+

@@ -59,8 +59,7 @@ export type SjTypography={
   p: SjStyle,
   body: SjStyle,
   strong: SjStyle,
-  caption: SjStyle,
-  button: SjStyle
+  caption: SjStyle
 }
 
 export type SjTheme = {
