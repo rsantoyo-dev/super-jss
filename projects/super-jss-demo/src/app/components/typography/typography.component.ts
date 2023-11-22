@@ -10,7 +10,7 @@ import { SuperJssModule } from 'projects/super-jss/src/lib';
 
 
       <h3 [sj]="{c: 'primary'}">Typography:</h3>
-     <h1 [sj]="{c:'secondary'}">H1: Super JSS leaps</h1>
+      <h1 [sj]="{c: 'secondary'}">H1: <a href="https://www.npmjs.com/package/super-jss">Super JSS</a> leaps</h1>
       <h2 [sj]="{c:'tertiary'}">H2: Over lazy CSS colleagues</h2>
       <h3 [sj]>H3: No media query, thanks to TypeScript!</h3>
       <h4 [sj]>H4: Just xs || md || lg || xl, Yarn's got our back!</h4>
