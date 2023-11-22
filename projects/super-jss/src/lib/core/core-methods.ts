@@ -4,7 +4,7 @@ import {
     SjBreakPoints,
     SjStyle,
     SjTheme,
-    SjShorthandStyle, SjShorthandCustomStyle, SjColors,
+    SjShorthandStyle, SjShorthandCustomStyle,
 } from "../models/interfaces";
 
 export const activeListeners = signal(false);
@@ -210,14 +210,18 @@ const resolveThemeColor = (value: string, theme: SjTheme): string => {
 
 export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
     // Loop through each typography style in the theme
+  console.log('el.nodeName', el.nodeName, theme.typography[el.nodeName as keyof typeof theme.typography])
     if(theme.typography[el.nodeName as keyof typeof theme.typography]){
+
         Object.keys(theme.typography).forEach(key => {
             // Set the default style to the default typography style
             const jss: SjStyle = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
             // Get the specific style for the current element if it exists
             const specificStyle: SjStyle | undefined = theme.typography[key as keyof typeof theme.typography];
             // If the current element matches the current typography style, apply the style to the element
+
             if (el.nodeName === key && specificStyle) {
+
                 applyResponsiveStyle(el, { ...jss, ...specificStyle }, screenWidth, theme);
             }
         });

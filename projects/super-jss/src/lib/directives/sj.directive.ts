@@ -20,14 +20,15 @@ export class SjDirective implements OnChanges{
 
     effect(() => {
       if(this.sjt.currentBreakpoint()){
-        applyTypography(this.vcr.element.nativeElement, sjt.sjTheme(), window.innerWidth);
         this.renderStyles();
       }
     })
   }
 
   renderStyles(){
+    applyTypography(this.vcr.element.nativeElement, this.sjt.sjTheme(), window.innerWidth);
     if(this.sj){
+
       if(Array.isArray(this.sj)){
         this.sj.forEach(style => applyResponsiveStyle(this.vcr.element.nativeElement, style as SjStyle, window.innerWidth, this.sjt.sjTheme()));
       }

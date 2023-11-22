@@ -63,16 +63,26 @@ export class HeaderComponent {
           light: this.th.colors().purple[200],
           dark: this.th.colors().purple[700],
           contrast: this.th.colors().orange[300],
+        },
+        secondary: {
+          main: this.th.colors().yellow[500],
+          light: this.th.colors().yellow[200],
+          dark: this.th.colors().yellow[700],
+          contrast: this.th.colors().purple[700],
         }
       });
       this.th.setBreakpoints({
         sm: 630,
         md: 900,
       });
+      this.th.setTypography({
+        default: { fontFamily: 'Courier New'},
+      });
     }
     else{
       this.th.setPalette(this.defaultThemeConfig.palette);
       this.th.setBreakpoints(this.defaultThemeConfig.breakpoints);
+      this.th.setTypography(this.defaultThemeConfig.typography);
     }
 
     this.toggleTheme.set(!this.toggleTheme());

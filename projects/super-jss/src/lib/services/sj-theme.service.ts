@@ -1,6 +1,6 @@
 
-import {Injectable, computed, signal, OnDestroy} from '@angular/core';
-import {SjBreakPoints, SjPalette} from '../models/interfaces';
+import {Injectable, computed, signal, OnDestroy, WritableSignal} from '@angular/core';
+import {SjBreakPoints, SjPalette, SjTypography} from '../models/interfaces';
 import {getCurrentBreakpoint} from "../core/core-methods";
 
 @Injectable({
@@ -9,7 +9,7 @@ import {getCurrentBreakpoint} from "../core/core-methods";
 export class SjThemeService implements OnDestroy{
 
   breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
-  typography = signal({
+  typography: WritableSignal<SjTypography> = signal({
     default: {fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', fontSize: 1, lineHeight: 1.6},
     H1: {fontSize: {xs: 2.5, md: 3.5}, fontWeight: '600', lineHeight: 4},
     H2: {fontSize: {xs: 2, md: 3}, fontWeight: '600', lineHeight: 3.5},
@@ -17,11 +17,11 @@ export class SjThemeService implements OnDestroy{
     H4: {fontSize: {xs: 1.5, md: 2}, fontWeight: '600', lineHeight: 2},
     H5: {fontSize: {xs: 1.25, md: 1.75}, fontWeight: '600', lineHeight: 2},
     H6: {fontSize: {xs: 1, md: 1.25}, fontWeight: '600', lineHeight: 1.5},
-    p: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.4},
-    span: {fontSize: 0.9, fontWeight: 'normal', lineHeight: 1.2},
-    strong: {fontSize: 1, fontWeight: 'bold', lineHeight: 1.2},
-    body: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.2},
-    caption: {fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.2},
+    P: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.4},
+    SPAN: {fontSize: 0.9, fontWeight: 'normal', lineHeight: 1.2},
+    STRONG: {fontSize: 1, fontWeight: 'bold', lineHeight: 1.2},
+    BODY: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.2},
+    CAPTION: {fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.2},
   });
   colors = signal({
     blue: {
@@ -244,6 +244,7 @@ export class SjThemeService implements OnDestroy{
 
 
   });
+
   currentBreakpoint = signal('xs');
 
   public setPalette(palette: Partial<SjPalette>) {
@@ -252,6 +253,10 @@ export class SjThemeService implements OnDestroy{
   public setBreakpoints(breakpoints: Partial<SjBreakPoints>) {
     this.breakpoints.set({...this.breakpoints(), ...breakpoints});
   }
+
+  public setTypography(typo: Partial<SjTypography>) {
+    this.typography.set({ ...this.typography(), ...typo});  }
+
 
   constructor() {
     window.addEventListener('resize', () => this.updateRender());

@@ -55,11 +55,11 @@ export type SjTypography={
   H4: SjStyle,
   H5: SjStyle,
   H6: SjStyle,
-  span: SjStyle,
-  p: SjStyle,
-  body: SjStyle,
-  strong: SjStyle,
-  caption: SjStyle
+  SPAN: SjStyle,
+  P: SjStyle,
+  BODY: SjStyle,
+  STRONG: SjStyle,
+  CAPTION: SjStyle
 }
 
 export type SjTheme = {

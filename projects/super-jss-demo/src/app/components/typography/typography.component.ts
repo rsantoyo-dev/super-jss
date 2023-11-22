@@ -15,8 +15,8 @@ import { SuperJssModule } from 'projects/super-jss/src/lib';
       <h3 [sj]>H3: No media query, thanks to TypeScript!</h3>
       <h4 [sj]>H4: Just xs || md || lg || xl, Yarn's got our back!</h4>
       <h5 [sj]>H5: Bold and bolder, Angular style!</h5>
-      <h6 [sj]>H6: Roboto rocks in this project!</h6>
-      <p [sj]>P: Helvetica too, making our text look great!</p>
+      <h6 [sj]>H6: Fonts rocks in this project!</h6>
+      <p [sj]>P: Theming too, making our text look great!</p>
       <span [sj]>SPAN: Flexing flex, for a flexible layout!</span>
       <strong [sj]>STRONG: SJSS wins with its responsive design!</strong>
       <body [sj]>BODY: SJSS is the best!</body>
