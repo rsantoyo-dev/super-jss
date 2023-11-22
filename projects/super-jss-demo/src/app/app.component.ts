@@ -7,7 +7,7 @@ import { PaletteComponent } from "./components/palette/palette.component";
     selector: 'app-root',
     standalone: true,
     template: `
-    <div [sj]="{d:'flex', fxDir: 'column', bg:'light.light'}">
+    <div [sj]="{d:'flex', fxDir: 'column', bg:'light'}">
       <app-header [sj]="{width:'100%'}"></app-header>
       <div [sj]="{d:'flex', fxDir: 'column', p: {xs: 2, md: 4}, gap: 2, fxAItems:'center'}">
         <app-typography [sj]="{d:'flex', fxDir:'column', width:'100%', maxWidth: 100}"></app-typography>

@@ -16,6 +16,7 @@ import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
         fxDir: 'column',
         my: 1,
         p: 1,
+        bg: 'light.light',
        }, sjBorderShadow]"
     >
       <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
