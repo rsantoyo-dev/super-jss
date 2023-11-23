@@ -2,10 +2,11 @@ import { Component } from "@angular/core";
 import { HeaderComponent } from "./header/header.component";
 import { TypographyComponent } from "./components/typography/typography.component";
 import { PaletteComponent } from "./components/palette/palette.component";
-import {SuperJssModule} from "super-jss";
+import {SjDirective} from "super-jss";
 @Component({
     selector: 'app-root',
     standalone: true,
+    imports: [SjDirective, HeaderComponent, TypographyComponent, PaletteComponent],
     template: `
     <div [sj]="{d:'flex', fxDir: 'column', bg:'light'}">
       <app-header [sj]="{width:'100%'}"></app-header>
@@ -14,8 +15,7 @@ import {SuperJssModule} from "super-jss";
         <app-palette [sj]="{d:'flex', fxDir:'column', width:'100%', maxWidth: 100}"></app-palette>
       </div>
     </div>
-  `,
-    imports: [SuperJssModule, HeaderComponent, TypographyComponent, PaletteComponent]
+  `
 })
 
 

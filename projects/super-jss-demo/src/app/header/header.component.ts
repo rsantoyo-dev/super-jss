@@ -1,18 +1,16 @@
 import {Component, effect, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule } from 'super-jss';
+import {SjDirective} from 'super-jss';
 import { SjThemeService } from 'super-jss';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, SuperJssModule],
+  imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="
-      {
-        d: 'flex',
-        fxDir: 'column',
+      {d: 'flex',       fxDir: 'column',
         fxAItems: 'center',
         fxJustify: 'center',
         p: { xs: 1, md: 3 },

@@ -1,13 +1,13 @@
 import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SuperJssModule } from 'super-jss';
+import {SjDirective} from 'super-jss';
 import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({
   selector: 'app-palette',
   standalone: true,
-  imports: [CommonModule, SuperJssModule],
+  imports: [CommonModule, SjDirective],
   template: `
     <h3 [sj]="{c: 'primary'}">Palette</h3>
     <div *ngFor="let color of demoColors()"

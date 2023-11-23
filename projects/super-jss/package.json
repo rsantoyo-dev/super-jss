@@ -1,6 +1,6 @@
 {
   "name": "sj-demo",
-  "version": "0.0.001",
+  "version": "0.0.21",
   "description": "A powerful library for responsive CSS styles in Angular applications.",
   "repository": {
     "type": "git",

@@ -1,8 +1,6 @@
-
 import {Injectable, computed, signal, OnDestroy, WritableSignal} from '@angular/core';
 import {SjBreakPoints, SjPalette, SjTypography} from '../models/interfaces';
 import {getCurrentBreakpoint} from "../core/core-methods";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -236,13 +234,11 @@ export class SjThemeService implements OnDestroy{
   sjTheme = computed(() => {
     return {
       breakpoints: this.breakpoints(),
-      spacing: (factor: number): string => `${factor}rem`,
+      spacing: (factor: number): string => `${factor*8}px`,
       typography: this.typography(),
       colors: this.colors(),
       palette: this.palette(),
     }
-
-
   });
 
   currentBreakpoint = signal('xs');
