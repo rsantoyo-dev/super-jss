@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SjThemeServiceService } from './sj-theme.service';
+import { SjThemeService } from './sj-theme.service';
 
 describe('SjThemeServiceService', () => {
-  let service: SjThemeServiceService;
+  let service: SjThemeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SjThemeServiceService);
+    service = TestBed.inject(SjThemeService);
   });
 
   it('should be created', () => {
