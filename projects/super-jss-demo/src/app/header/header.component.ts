@@ -1,8 +1,7 @@
 import {Component, effect, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule } from 'projects/super-jss/src/lib/';
-import { SjThemeService } from 'projects/super-jss/src/lib';
-import {SjBreakPoints} from "../../../../super-jss/src/lib/models/interfaces";
+import { SuperJssModule } from 'super-jss';
+import { SjThemeService } from 'super-jss';
 
 
 @Component({
@@ -47,7 +46,7 @@ export class HeaderComponent {
 
   toggleTheme = signal(false);
 
-  breakpoints:SjBreakPoints = {xs: 0, sm: 0, md: 0, lg: 0, xl: 0, xxl: 0};
+  breakpoints =  this.th.breakpoints();
 
   constructor(private th:SjThemeService) {
     effect(() => {

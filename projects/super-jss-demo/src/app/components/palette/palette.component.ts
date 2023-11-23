@@ -1,7 +1,7 @@
 import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SuperJssModule } from 'projects/super-jss/src/lib';
+import { SuperJssModule } from 'super-jss';
 import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({

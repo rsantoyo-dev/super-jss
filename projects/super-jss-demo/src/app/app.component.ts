@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { HeaderComponent } from "./header/header.component";
-import { SuperJssModule } from "projects/super-jss/src/lib/super-jss.module";
 import { TypographyComponent } from "./components/typography/typography.component";
 import { PaletteComponent } from "./components/palette/palette.component";
+import {SuperJssModule} from "super-jss";
 @Component({
     selector: 'app-root',
     standalone: true,

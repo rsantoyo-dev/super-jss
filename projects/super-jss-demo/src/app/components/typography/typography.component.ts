@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule } from 'projects/super-jss/src/lib';
+import { SuperJssModule } from 'super-jss';
 import {sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({
