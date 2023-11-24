@@ -259,7 +259,7 @@ export class SjThemeService implements OnDestroy{
     window.addEventListener('load', () => this.updateRender());
   }
 
-  private updateRender(){
+  updateRender(){
     this.currentBreakpoint.set(getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth));
   }
 
