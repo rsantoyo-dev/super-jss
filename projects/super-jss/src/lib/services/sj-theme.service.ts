@@ -6,6 +6,7 @@ import {getCurrentBreakpoint} from "../core/core-methods";
 })
 export class SjThemeService implements OnDestroy{
 
+  // Signals to manage reactive state for breakpoints and theme configurations
   breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
   typography: WritableSignal<SjTypography> = signal({
     default: {fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', fontSize: 1, lineHeight: 1.6},
@@ -168,6 +169,8 @@ export class SjThemeService implements OnDestroy{
     black: '#000000',
     white: '#FFFFFF'
   });
+
+  // Palette signal for managing theme's color palette
   private palette = signal({
       primary: {
         main: this.colors().blue[500],
@@ -241,28 +244,53 @@ export class SjThemeService implements OnDestroy{
     }
   });
 
+  // Signal to track the current breakpoint
   currentBreakpoint = signal('xs');
 
-  public setPalette(palette: Partial<SjPalette>) {
-    this.palette.set({ ...this.palette(), ...palette });  }
-
-  public setBreakpoints(breakpoints: Partial<SjBreakPoints>) {
-    this.breakpoints.set({...this.breakpoints(), ...breakpoints});
-  }
-
-  public setTypography(typo: Partial<SjTypography>) {
-    this.typography.set({ ...this.typography(), ...typo});  }
-
+  /**
+   * Constructor to set up event listeners for window resize and load events.
+   * This is necessary to update the theme according to the window size.
+   */
 
   constructor() {
     window.addEventListener('resize', () => this.updateRender());
     window.addEventListener('load', () => this.updateRender());
   }
 
+  /**
+   * Updates the rendering based on the current window size.
+   * This function sets the current breakpoint according to the window width.
+   */
   updateRender(){
     this.currentBreakpoint.set(getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth));
   }
 
+  /**
+   * Sets a new palette for the theme.
+   * @param palette Partial configuration for the theme's palette.
+   */
+  public setPalette(palette: Partial<SjPalette>) {
+    this.palette.set({ ...this.palette(), ...palette });  }
+
+  /**
+   * Sets new breakpoints for the theme.
+   * @param breakpoints Partial configuration for the theme's breakpoints.
+   */
+  public setBreakpoints(breakpoints: Partial<SjBreakPoints>) {
+    this.breakpoints.set({...this.breakpoints(), ...breakpoints});
+  }
+
+  /**
+   * Sets new typography for the theme.
+   * @param typo Partial configuration for the theme's typography.
+   */
+  public setTypography(typo: Partial<SjTypography>) {
+    this.typography.set({ ...this.typography(), ...typo});  }
+
+  /**
+   * Lifecycle hook that is called when the service is destroyed.
+   * Removes event listeners for resize and load to prevent memory leaks.
+   */
   ngOnDestroy() {
     window.removeEventListener('resize', this.updateRender);
     window.removeEventListener('load', this.updateRender);

@@ -1,16 +1,19 @@
+// Defines options for theme colors with main, light, dark, and contrast variants.
 export type SjThemeColorOption = {
   main: string,
   light: string,
   dark: string,
   contrast: string,
 }
+
+// Represents a color option with different shades and a contrast color.
 export type SjColorOption = {
   50: string,
   100: string,
   200: string,
   300: string,
   400: string,
-  500: string, //default
+  500: string, // Default shade
   600: string,
   700: string,
   800: string,
@@ -18,24 +21,26 @@ export type SjColorOption = {
   contrast: string,
 }
 
-export type SjColors={
+// Collection of color options for different color themes.
+export type SjColors = {
   blue: SjColorOption,
-    indigo: SjColorOption,
-    purple: SjColorOption,
-    pink: SjColorOption,
-    red: SjColorOption,
-    orange: SjColorOption,
-    yellow: SjColorOption,
-    green: SjColorOption,
-    teal: SjColorOption,
-    cyan: SjColorOption,
-    gray: SjColorOption,
-    black: string,
-    white: string
+  indigo: SjColorOption,
+  purple: SjColorOption,
+  pink: SjColorOption,
+  red: SjColorOption,
+  orange: SjColorOption,
+  yellow: SjColorOption,
+  green: SjColorOption,
+  teal: SjColorOption,
+  cyan: SjColorOption,
+  gray: SjColorOption,
+  black: string,
+  white: string
 }
 
-export type SjPalette={
-  primary: SjThemeColorOption
+// Defines the color palette for primary, secondary, and other specific UI elements.
+export type SjPalette = {
+  primary: SjThemeColorOption,
   secondary: SjThemeColorOption,
   tertiary: SjThemeColorOption,
   success: SjThemeColorOption,
@@ -47,7 +52,8 @@ export type SjPalette={
   light: SjThemeColorOption
 }
 
-export type SjTypography={
+// Typographic styles for various text elements.
+export type SjTypography = {
   default: SjStyle,
   H1: SjStyle,
   H2: SjStyle,
@@ -62,33 +68,36 @@ export type SjTypography={
   CAPTION: SjStyle
 }
 
+// Main theme configuration including breakpoints, spacing, typography, colors, and palette.
 export type SjTheme = {
-  breakpoints: SjBreakPoints;
+  breakpoints: SjBreakPoints,
   spacing: (factor: number) => string,
   typography: SjTypography,
   colors: SjColors,
   palette: SjPalette
 }
 
-export type SjBreakPoints= {
-  xs: number;
-  sm: number;
-  md: number;
-  lg: number;
-  xl: number;
-  xxl: number;
+// Breakpoints for responsive design, typically width thresholds.
+export type SjBreakPoints = {
+  xs: number,
+  sm: number,
+  md: number,
+  lg: number,
+  xl: number,
+  xxl: number
 }
 
+// Type for responsive styles, allowing different values for different breakpoints.
 export type ResponsiveStyle = {
-  xs?: string | number;
-  sm?: string | number;
-  md?: string | number;
-  lg?: string | number;
-  xl?: string | number;
-  xxl?: string | number;
+  xs?: string | number,
+  sm?: string | number,
+  md?: string | number,
+  lg?: string | number,
+  xl?: string | number,
+  xxl?: string | number
 }
 
-
+// Shorthand styles for common CSS properties with responsive support.
 export type SjShorthandStyle = {
   //padding margin
   p?: ResponsiveStyle | string | number; // shorthand for padding
@@ -142,6 +151,7 @@ export type SjShorthandStyle = {
   fxASelf?: ResponsiveStyle | string | number; // shorthand for alignSelf
 };
 
+// Custom shorthand styles extending SjShorthandStyle with additional combined properties.
 export type SjShorthandCustomStyle = {
   py?: ResponsiveStyle | string | number; // shorthand for padding
   px?: ResponsiveStyle | string | number; // shorthand for paddingTop
