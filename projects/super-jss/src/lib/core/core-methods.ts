@@ -22,7 +22,6 @@ export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: numb
     return bp;
 }
 
-
 /**
  * Resolves the appropriate style for a given screen width from a set of responsive styles.
  * @param {ResponsiveStyle} responsiveStyle - The responsive styles to choose from.
